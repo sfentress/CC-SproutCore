@@ -1,11 +1,11 @@
 // ==========================================================================
-// Project:   CC - mainPage
+// Project:   Demos - mainPage
 // Copyright: ©2010 My Company, Inc.
 // ==========================================================================
-/*globals CC */
+/*globals Demos */
 
 // This page describes the main user interface for your application.  
-CC.mainPage = SC.Page.design({
+Demos.mainPage = SC.Page.design({
 
   // The main pane is made visible on screen as soon as your app is loaded.
   // Add childViews to this pane for views to display immediately on page 

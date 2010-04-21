@@ -1,8 +1,8 @@
 // ==========================================================================
-// Project:   CC
+// Project:   Demos
 // Copyright: ©2010 My Company, Inc.
 // ==========================================================================
-/*globals CC */
+/*globals Demos */
 
 /** @namespace
 
@@ -10,10 +10,10 @@
   
   @extends SC.Object
 */
-CC = SC.Application.create(
-  /** @scope CC.prototype */ {
+Demos = SC.Application.create(
+  /** @scope Demos.prototype */ {
 
-  NAMESPACE: 'CC',
+  NAMESPACE: 'Demos',
   VERSION: '0.1.0',
 
   // This is your application store.  You will use this store to access all
