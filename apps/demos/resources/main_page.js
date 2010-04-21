@@ -2,7 +2,7 @@
 // Project:   Demos - mainPage
 // Copyright: ©2010 My Company, Inc.
 // ==========================================================================
-/*globals Demos */
+/*globals Demos CC*/
 
 // This page describes the main user interface for your application.  
 Demos.mainPage = SC.Page.design({
@@ -14,7 +14,7 @@ Demos.mainPage = SC.Page.design({
     childViews: 'mwAppletView'.w(),
     
     mwAppletView: CC.MwAppletView.design({
-      layout: { centerX: 0, centerY: 0, width: 200, height: 18 }
+      layout: { centerX: 0, centerY: 0, width: 200, height: 25 }
     })
   })
 
