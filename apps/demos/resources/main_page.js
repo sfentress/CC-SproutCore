@@ -17,7 +17,8 @@ Demos.mainPage = SC.Page.design({
       layout: {top: 30, bottom: 5, left: 5, right: 5 }, 
       items: [ 
         {title: "Welcome", value: "demos" },
-        {title: "Applet", value: "mwAppletView" },
+        {title: "MW Applet", value: "mwAppletView" },
+        {title: "Generic Applet", value: "pedigreeAppletView" },
         {title: "Inner pages", value: "innerTabView" } 
       ], 
       itemTitleKey: 'title', 
@@ -31,6 +32,11 @@ Demos.mainPage = SC.Page.design({
   mwAppletView: CC.MwAppletView.design({
     cmlUrl: "http://mw2.concord.org/public/student/classic/machine/bike.cml",
     layout: { centerX: 0, centerY: 0, width: 500, height: 400 }
+  }),
+
+  pedigreeAppletView: CC.AppletView.design({
+    jarUrls: "http://geniverse.dev.concord.org/Geniverse-Experiments/Comet-streamhub/lib/biologica-applets-0.1.0-SNAPSHOT.jar, http://geniverse.dev.concord.org/Geniverse-Experiments/Comet-streamhub/lib/biologica-0.1.0-SNAPSHOT.jar, http://geniverse.dev.concord.org/Geniverse-Experiments/Comet-streamhub/lib/framework-0.1.0-SNAPSHOT.jar, http://geniverse.dev.concord.org/Geniverse-Experiments/Comet-streamhub/lib/frameworkview-0.1.0-SNAPSHOT2.jar",
+    code: "org/concord/biologica/applet/PedigreeApplet.class"
   }),
   
   // sample view of inner pages
