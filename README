@@ -1,1 +1,3 @@
-Common CC SproutCore components
+A Framework containing common CC SproutCore components.
+
+To see the demos of the components, run 'sc-server' and go to the /demos page in your browser.
