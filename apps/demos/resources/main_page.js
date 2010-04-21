@@ -14,7 +14,8 @@ Demos.mainPage = SC.Page.design({
     childViews: 'mwAppletView'.w(),
     
     mwAppletView: CC.MwAppletView.design({
-      layout: { centerX: 0, centerY: 0, width: 200, height: 25 }
+      cmlUrl: "http://mw2.concord.org/public/student/classic/machine/bike.cml",
+      layout: { centerX: 0, centerY: 0, width: 500, height: 400 }
     })
   })
 
