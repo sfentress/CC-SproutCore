@@ -12,9 +12,13 @@
   @extends CC.AppletView
 */
 CC.MwAppletView = CC.AppletView.extend(
-/** @scope Cc.MwAppletView.prototype */ {
+/** @scope Cc.MwAppletView.prototype */ {  
 
   cmlUrl: '',         // url to cml file
+  
+  params: function() {    // adds cml url as the param to the mw applet
+    return '<param name="script" value="page:0:import ' + this.get('cmlUrl') + '"/>';
+  }.property('cmlUrl'),
   
   jarUrls: 'http://mw2.concord.org/public/lib/mwapplet.jar',
   
@@ -23,11 +27,6 @@ CC.MwAppletView = CC.AppletView.extend(
   width: 600,
   
   height: 400,
-
-  render: function(context, firstTime) {
-      this.set('params', '<param name="script" value="page:0:import ' + this.get('cmlUrl') + '"/>');
-      context.push(this.getAppletHtml());
-  },
   
   classNames: "mw-applet",
   
