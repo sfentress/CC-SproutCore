@@ -6,34 +6,27 @@
 
 /** @class
 
-  (Document Your View Here)
+  A simple view for embedding MW applets. The only property that must be set is
+  the url to the .cml file.
 
-  @extends SC.View
+  @extends CC.AppletView
 */
-CC.MwAppletView = SC.View.extend(
+CC.MwAppletView = CC.AppletView.extend(
 /** @scope Cc.MwAppletView.prototype */ {
 
-  cmlUrl: "",         // url to cml file
+  cmlUrl: '',         // url to cml file
   
-  jarUrls: "http://mw2.concord.org/public/lib/mwapplet.jar",    // if more than one jar, they can be comma-separated
+  jarUrls: 'http://mw2.concord.org/public/lib/mwapplet.jar',
+  
+  code: 'org.concord.modeler.MwApplet',
   
   width: 600,
   
   height: 400,
 
   render: function(context, firstTime) {
-    this.get('layout').width = 900;
-    var appletHtml = 
-      '<applet id="applet1" ' +
-      'archive="' + this.get('jarUrls') + '" ' +
-      'code="org.concord.modeler.MwApplet" ' +
-      'width="100%" ' +
-      'height="' + this.get('height') + '">' +
-      '<param name="script" value="page:0:' +
-      'import ' + this.get('cmlUrl') + '"/>' +
-      '</applet>';
-      
-      context.push(appletHtml);
+      this.set('params', '<param name="script" value="page:0:import ' + this.get('cmlUrl') + '"/>');
+      context.push(this.getAppletHtml());
   },
   
   classNames: "mw-applet",
