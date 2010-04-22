@@ -71,11 +71,13 @@ Demos.mainPage = SC.Page.design({
   }),
 
 	question1View: CC.QuestionView.design({
+		layout: {top: 15, left: 0, right: 0, bottom: 0},
 		classNames: 'question1',
 		prompt: "What do you think of this fine question?"
 	}),
 	
 	question2View: CC.QuestionView.design({
+		layout: {top: 15, left: 0, right: 0, bottom: 0},
 		classNames: 'question2',
 		prompt: "What do you think of this different fine question?<br/>This <span style='font-weight: bold;'>question</span> has <span style='font-style: oblique;'>styling</span>."
 	})
