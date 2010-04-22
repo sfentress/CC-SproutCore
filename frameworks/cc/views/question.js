@@ -26,31 +26,25 @@ CC.QuestionView = SC.View.extend({
 	stackView: SC.StackedView.design({
 		layout: {top: 0, left: 0, right: 0},
 		
-		childViews: 'promptView inputView'.w(),
+		childViews: 'promptView inputWrapperView'.w(),
 		promptBinding: "*parentView.prompt",
 		
-		promptView: SC.LabelView.design({
+		promptView: SC.LabelView.design(SC.StaticLayout, {
 			classNames: 'question-prompt',
 			useStaticLayout: YES,
 			escapeHTML: NO,
-			layout: {top: 15, left: 5, right: 5},
-			valueBinding: "*parentView.prompt",
-			render: function(context, firstTime) {
-				sc_super();
-				context.addStyle('height', 'auto');
-				context.addStyle('bottom', null);
-			}
+			layout: { left: 5, right: 5 },
+			valueBinding: "*parentView.prompt"
 		}),
 
-		inputView: SC.TextFieldView.design({
-			classNames: 'question-input',
+		inputWrapperView: SC.View.design(SC.StaticLayout, {
+			layout: {left: 20, top: 5, width: 600, height: 95 },
 			useStaticLayout: YES,
-			isTextArea: YES,
-			layout: {left: 15, width: 400, top: 15, height: 95 },
-			render: function(context, firstTime) {
-				sc_super();
-				// context.addStyle('height', null);
-			}
+			childViews: 'inputView'.w(),
+			inputView: SC.TextFieldView.design(SC.StaticLayout, {
+				classNames: 'question-input',
+				isTextArea: YES
+			})
 		})
 	})
 
