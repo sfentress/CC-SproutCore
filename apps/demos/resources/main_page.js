@@ -19,11 +19,14 @@ Demos.mainPage = SC.Page.design({
         {title: "Welcome", value: "demos" },
         {title: "MW Applet", value: "mwAppletView" },
         {title: "Generic Applet", value: "pedigreeAppletView" },
-        {title: "Inner pages", value: "innerTabView" } 
+        {title: "Inner pages", value: "innerTabView" },
+				{title: "Question 1", value: "question1View" },
+				{title: "Question 2", value: "question2View" }
       ], 
       itemTitleKey: 'title', 
       itemValueKey: 'value', 
-      nowShowing: 'demos' // defining the startup tab 
+      nowShowing: 'demos', // defining the startup tab 
+      userDefaultKey: 'mainPaneTab'
     })
     
   }),
@@ -65,6 +68,16 @@ Demos.mainPage = SC.Page.design({
   page2: SC.LabelView.design({
     escapeHTML: NO,
     value: "<h1>Page 2</h1><p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>"
-  })
+  }),
+
+	question1View: CC.QuestionView.design({
+		classNames: 'question1',
+		prompt: "What do you think of this fine question?"
+	}),
+	
+	question2View: CC.QuestionView.design({
+		classNames: 'question2',
+		prompt: "What do you think of this different fine question?<br/>This <span style='font-weight: bold;'>question</span> has <span style='font-style: oblique;'>styling</span>."
+	})
 
 });
