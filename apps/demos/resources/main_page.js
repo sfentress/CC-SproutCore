@@ -21,7 +21,8 @@ Demos.mainPage = SC.Page.design({
         {title: "Generic Applet", value: "pedigreeAppletView" },
         {title: "Inner pages", value: "innerTabView" },
 				{title: "Question 1", value: "question1View" },
-				{title: "Question 2", value: "question2View" }
+				{title: "Question 2", value: "question2View" },
+				{title: "Question Stack", value: "questionStackView" }
       ], 
       itemTitleKey: 'title', 
       itemValueKey: 'value', 
@@ -72,14 +73,38 @@ Demos.mainPage = SC.Page.design({
 
 	question1View: CC.QuestionView.design({
 		layout: {top: 15, left: 0, right: 0, bottom: 0},
-		classNames: 'question1',
+		classNames: 'question1View',
 		prompt: "What do you think of this fine question?"
 	}),
 	
 	question2View: CC.QuestionView.design({
 		layout: {top: 15, left: 0, right: 0, bottom: 0},
-		classNames: 'question2',
+		classNames: 'question2View',
 		prompt: "What do you think of this different fine question?<br/>This <span style='font-weight: bold;'>question</span> has <span style='font-style: oblique;'>styling</span>."
+	}),
+	
+	questionStackView: SC.StackedView.design({
+		layout: {top: 15, bottom: 0, left: 0, right: 0},
+		
+		childViews: 'question1 question2 question3'.w(),
+		
+		question1: CC.QuestionView.design({
+			useStaticLayout: YES,
+			classNames: 'question1',
+			prompt: "First Question: What is your name?"
+		}),
+		
+		question2: CC.QuestionView.design({
+			useStaticLayout: YES,
+			classNames: 'question2',
+			prompt: "First Question: What is your quest?"
+		}),
+		
+		question3: CC.QuestionView.design({
+			useStaticLayout: YES,
+			classNames: 'question3',
+			prompt: "First Question: What is your favorite color?"
+		})
 	})
 
 });
