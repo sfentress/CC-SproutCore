@@ -1,0 +1,10 @@
+.sc-theme .sc-stacked-view .question-prompt {
+	position: relative;
+	height: auto;
+	display: block;
+}
+
+.sc-theme .sc-stacked-view .question-input {
+	position: relative;
+	display: block;
+}
