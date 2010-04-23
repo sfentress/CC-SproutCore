@@ -20,8 +20,8 @@ Demos.mainPage = SC.Page.design({
         {title: "MW Applet", value: "mwAppletView" },
         {title: "Generic Applet", value: "pedigreeAppletView" },
         {title: "Inner pages", value: "innerTabView" },
-				{title: "Question 1", value: "question1View" },
-				{title: "Question 2", value: "question2View" },
+				{title: "OR Question", value: "openResponseQuestionView" },
+				{title: "MC Question", value: "multipleChoiceQuestionView" },
 				{title: "Question Stack", value: "questionStackView" }
       ], 
       itemTitleKey: 'title', 
@@ -71,16 +71,17 @@ Demos.mainPage = SC.Page.design({
     value: "<h1>Page 2</h1><p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>"
   }),
 
-	question1View: CC.QuestionView.design({
+	openResponseQuestionView: CC.QuestionView.design({
 		layout: {top: 15, left: 0, right: 0, bottom: 0},
 		classNames: 'question1View',
 		prompt: "What do you think of this fine question?"
 	}),
 	
-	question2View: CC.QuestionView.design({
+	multipleChoiceQuestionView: CC.MultipleChoiceQuestionView.design({
 		layout: {top: 15, left: 0, right: 0, bottom: 0},
 		classNames: 'question2View',
-		prompt: "What do you think of this different fine question?<br/>This <span style='font-weight: bold;'>question</span> has <span style='font-style: oblique;'>styling</span>."
+		prompt: "What do you think of this different fine question?<br/>This <span style='font-weight: bold;'>question</span> has <span style='font-style: oblique;'>styling</span>.",
+		choices: "one two three four".w()
 	}),
 	
 	questionStackView: SC.StackedView.design({
@@ -97,13 +98,14 @@ Demos.mainPage = SC.Page.design({
 		question2: CC.QuestionView.design({
 			useStaticLayout: YES,
 			classNames: 'question2',
-			prompt: "First Question: What is your quest?"
+			prompt: "Second Question: What is your quest?"
 		}),
 		
-		question3: CC.QuestionView.design({
+		question3: CC.MultipleChoiceQuestionView.design({
 			useStaticLayout: YES,
 			classNames: 'question3',
-			prompt: "First Question: What is your favorite color?"
+			prompt: "Third Question: What is your favorite color?",
+			choices: ["Blue", "Blue. No yell-- Auuuuuuuuuugh!"]
 		})
 	})
 
