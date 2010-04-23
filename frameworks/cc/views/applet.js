@@ -23,25 +23,30 @@ CC.AppletView = SC.View.extend(
   
   height: 400,
 
+	appletInstance: function() {
+		return this.$('#' + this.get('appletId'))[0];
+	},
+
   render: function(context, firstTime) {
-      context.push(this.getAppletHtml());
+			this.renderAppletHtml(context);
   },
   
-  getAppletHtml: function() {
-    var appletHtml = 
-      '<applet ' +
-      'archive="' + this.get('jarUrls') + '" ' +
-      'code="' + this.get('code') + '" ' +
-      'width="100%" ' +
-      'height="' + this.get('height') + '">' +
-      this.get('params') +
-      '</applet>';
-      
-      return appletHtml;
+  renderAppletHtml: function(context) {
+	  var appletContext = context.begin('applet');
+	  appletContext.attr('id', this.get('appletId'));
+	  appletContext.attr('archive', this.get('jarUrls'));
+	  appletContext.attr('code', this.get('code'));
+	  appletContext.attr('width', '100%');
+	  appletContext.attr('height', this.get('height'));
+		appletContext.push(this.get('params'));
+		appletContext.end();
   },
   
   classNames: "applet",
   
-  layout: { centerX: 0, centerY: 0, width: 600, height: 400 }     // defaults
+  layout: { centerX: 0, centerY: 0, width: 600, height: 400 },     // defaults
 
+	appletId: function() {
+		return this.get('layerId') + '-applet';
+	}.property('layerId').cacheable()
 });

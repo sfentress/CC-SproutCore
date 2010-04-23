@@ -33,10 +33,39 @@ Demos.mainPage = SC.Page.design({
   }),
   
   // sample MW applet view
-  mwAppletView: CC.MwAppletView.design({
-    cmlUrl: "http://mw2.concord.org/public/student/classic/machine/bike.cml",
-    layout: { centerX: 0, centerY: 0, width: 500, height: 400 }
-  }),
+  mwAppletView: SC.View.design({
+	
+	  childViews: 'mwApplet startButton stopButton resetButton'.w(),
+	
+		mwApplet: CC.MwAppletView.design({
+	    cmlUrl: "http://mw2.concord.org/public/student/classic/machine/bike.cml",
+	    layout: { centerX: 0, centerY: 0, width: 500, height: 400 }
+	  }),
+	
+		startButton: SC.ButtonView.design({
+			layout: { centerY: -235, centerX: -85, height: 50, width: 80},
+			title: "Start",
+			action: function() {
+				this.getPath('parentView.mwAppletView').appletInstance().runMwScript("mw2d:1:run");
+			}
+		}),
+
+		stopButton: SC.ButtonView.design({
+			layout: { centerY: -235, centerX: 0, height: 50, width: 80},
+			title: "Stop",
+			action: function() {
+				this.getPath('parentView.mwAppletView').appletInstance().runMwScript("mw2d:1:stop");
+			}
+		}),
+
+		resetButton: SC.ButtonView.design({
+			layout: { centerY: -235, centerX: 85, height: 50, width: 80},
+			title: "Reset",
+			action: function() {
+				this.getPath('parentView.mwAppletView').appletInstance().runMwScript("mw2d:1:reset");
+			}
+		})
+	}),
 
   pedigreeAppletView: CC.AppletView.design({
     jarUrls: "http://geniverse.dev.concord.org/Geniverse-Experiments/Comet-streamhub/lib/biologica-applets-0.1.0-SNAPSHOT.jar, http://geniverse.dev.concord.org/Geniverse-Experiments/Comet-streamhub/lib/biologica-0.1.0-SNAPSHOT.jar, http://geniverse.dev.concord.org/Geniverse-Experiments/Comet-streamhub/lib/framework-0.1.0-SNAPSHOT.jar, http://geniverse.dev.concord.org/Geniverse-Experiments/Comet-streamhub/lib/frameworkview-0.1.0-SNAPSHOT2.jar",
