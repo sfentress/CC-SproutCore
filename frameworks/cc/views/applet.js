@@ -48,5 +48,9 @@ CC.AppletView = SC.View.extend(
 
 	appletId: function() {
 		return this.get('layerId') + '-applet';
-	}.property('layerId').cacheable()
+	}.property('layerId').cacheable(),
+	
+	run: function(func) {
+		func(this.appletInstance());
+	}
 });

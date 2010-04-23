@@ -45,24 +45,36 @@ Demos.mainPage = SC.Page.design({
 		startButton: SC.ButtonView.design({
 			layout: { centerY: -235, centerX: -85, height: 50, width: 80},
 			title: "Start",
+			appletBinding: "*parentView.mwApplet",
 			action: function() {
-				this.getPath('parentView.mwAppletView').appletInstance().runMwScript("mw2d:1:run");
+				this.get('applet').run(this.appletAction);
+			},
+			appletAction: function(applet) {
+				applet.runMwScript("mw2d:1:run");
 			}
 		}),
 
 		stopButton: SC.ButtonView.design({
 			layout: { centerY: -235, centerX: 0, height: 50, width: 80},
 			title: "Stop",
+			appletBinding: "*parentView.mwApplet",
 			action: function() {
-				this.getPath('parentView.mwAppletView').appletInstance().runMwScript("mw2d:1:stop");
+				this.get('applet').run(this.appletAction);
+			},
+			appletAction: function(applet) {
+				applet.runMwScript("mw2d:1:stop");
 			}
 		}),
 
 		resetButton: SC.ButtonView.design({
 			layout: { centerY: -235, centerX: 85, height: 50, width: 80},
 			title: "Reset",
+			appletBinding: "*parentView.mwApplet",
 			action: function() {
-				this.getPath('parentView.mwAppletView').appletInstance().runMwScript("mw2d:1:reset");
+				this.get('applet').run(this.appletAction);
+			},
+			appletAction: function(applet) {
+				applet.runMwScript("mw2d:1:reset");
 			}
 		})
 	}),
