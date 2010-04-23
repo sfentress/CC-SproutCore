@@ -14,7 +14,7 @@ CC.QuestionView = SC.StackedView.extend(SC.StaticLayout, {
 	
 	layout: {top: 0, left: 0, right: 0},
 
-  classNames: ['question'],
+  classNames: ['question','open-response-question'],
 
   contentDisplayProperties: 'prompt'.w(),
 
@@ -22,7 +22,7 @@ CC.QuestionView = SC.StackedView.extend(SC.StaticLayout, {
 	
 	useStaticLayout: NO,
 		
-	childViews: 'promptView inputWrapperView'.w(),
+	childViews: 'promptView inputView'.w(),
 	
 	promptView: SC.LabelView.design(SC.StaticLayout, {
 		classNames: 'question-prompt',
@@ -32,11 +32,11 @@ CC.QuestionView = SC.StackedView.extend(SC.StaticLayout, {
 		valueBinding: "*parentView.prompt"
 	}),
 
-	inputWrapperView: SC.View.design(SC.StaticLayout, {
+	inputView: SC.View.design(SC.StaticLayout, {
 		layout: {left: 20, top: 5, width: 600, height: 95 },
 		useStaticLayout: YES,
-		childViews: 'inputView'.w(),
-		inputView: SC.TextFieldView.design(SC.StaticLayout, {
+		childViews: 'textFieldView'.w(),
+		textFieldView: SC.TextFieldView.design({
 			classNames: 'question-input',
 			isTextArea: YES
 		})
