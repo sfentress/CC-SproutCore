@@ -34,7 +34,7 @@ test("question should render with a prompt and a text area", function() {
   var renderedPrompt   = questionViewRendered.$('.question-prompt').html();
   equals(renderedPrompt, PROMPT, "rendered prompt should equal given prompt");
   
-  var input = questionViewRendered.$('.question-input').html();
-  ok(input.indexOf('textarea') > 0, "text area should exist");
+  var input = questionViewRendered.$('.question-input');
+  ok(input.find('textarea').size() === 1, "text area should exist");
 });
 
