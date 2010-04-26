@@ -2,14 +2,39 @@
 // Project:   Cc.QuestionView Unit Test
 // Copyright: ©2010 My Company, Inc.
 // ==========================================================================
-/*globals Cc module test ok equals same stop start */
+/*globals CC module test ok equals same stop start */
 
-module("Cc.QuestionView");
+var questionView, pane, questionViewRendered;
 
-// TODO: Replace with real unit test for Cc.QuestionView
-test("test description", function() {
-  var expected = "test";
-  var result   = "test";
-  equals(result, expected, "test should equal test");
+var PROMPT = "What do you think of this fine question?";
+
+module("CC.QuestionView", {
+  setup: function() {
+    SC.RunLoop.begin();
+      questionView = CC.QuestionView.design({
+        prompt: PROMPT
+      });
+      
+        pane = SC.MainPane.create({
+          childViews: [questionView]
+        });
+        pane.append();
+        SC.RunLoop.end();
+        
+        questionViewRendered = pane.childViews[0];
+  },
+  
+  teardown: function() {
+    pane.remove();
+    pane = questionView = questionViewRendered = null;
+  }
+});
+
+test("question should render with a prompt and a text area", function() {
+  var renderedPrompt   = questionViewRendered.$('.question-prompt').html();
+  equals(renderedPrompt, PROMPT, "rendered prompt should equal given prompt");
+  
+  var input = questionViewRendered.$('.question-input').html();
+  ok(input.indexOf('textarea') > 0, "text area should exist");
 });
 
