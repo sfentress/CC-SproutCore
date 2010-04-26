@@ -31,18 +31,10 @@ module("CC.MwAppletView", {
 });
 
 test("applet should contain MW jar and CML file", function() {
-  
-  // we should be able to do this:
-  //    var applet   = mwAppletViewRendered.$('applet');
-  //    var archive  = applet.attr('archive')
-  //    [check that archive is correct]
-  // but applet.attr('archive') throws an error (while applet.html() works just fine)
-  
-  var appletHTML   = mwAppletViewRendered.$().html();
-  ok(appletHTML.indexOf('http://mw2.concord.org/public/lib/mwapplet.jar') > -1, 'applet contains MW jar');
-  
-  
   var applet   = mwAppletViewRendered.$('applet');
+  var archive  = applet.attr('archive');
+  ok(archive === 'http://mw2.concord.org/public/lib/mwapplet.jar', 'applet contains MW jar');
+  
   var param = applet.html();
   ok(param.indexOf(CML_URL) > -1, 'applet contains param with cml file');
 });

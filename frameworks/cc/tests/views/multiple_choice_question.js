@@ -12,7 +12,7 @@ module("CC.MultipleChoiceQuestionView", {
   setup: function() {
     SC.RunLoop.begin();
     mwChoiceView = CC.MultipleChoiceQuestionView.design({
-      prompt: "What do you think of this different fine question?<br/>This <span style='font-weight: bold;'>question</span> has <span style='font-style: oblique;'>styling</span>.",
+      prompt: "What do you think of this different fine question?",
   		choices: CHOICES
     });
     
@@ -26,12 +26,11 @@ module("CC.MultipleChoiceQuestionView", {
   },
   
   teardown: function() {
-    pane.remove();
-    pane = mwChoiceView = mwChoiceViewRendered = null;
+   pane.remove();
+   pane = mwChoiceView = mwChoiceViewRendered = null;
   }
 });
 
-// TODO: Replace with real unit test for Cc.MultipleChoiceQuestionView
 test("multiple choice question should contain choice radio buttons", function() {
   var input = mwChoiceViewRendered.$('.question-input');
   
