@@ -9,7 +9,8 @@ Capybara.app_host = "http://localhost:#{ENV['SC_SERVER_PORT']}"
 
 include Capybara
 
-visit('/cc/en/current/tests/views.html')
+#visit('/cc/en/current/tests/views.html')
+#results = evaluate_script('CoreTest.plan.results')
 # t = find('//table')
 
 # {"failed"=>0, "warnings"=>0, "tests"=>4, "finish"=>1272374164684, 
@@ -24,9 +25,8 @@ visit('/cc/en/current/tests/views.html')
 #     {"result"=>"passed", "message"=>"test should equal test: test", 
 #         "module"=>"views/question.js\nCc.QuestionView", "test"=>"test description"}]}
 
-results = evaluate_script('CoreTest.plan.results')
 #puts results.to_yaml
-#results = YAML.load_file( 'example-hash.yml' )
+results = YAML.load_file( 'example-hash.yml' )
 #puts results.inspect
 
 class TestModule
@@ -49,11 +49,10 @@ class TestTest
     @failed = false
   end
   
-  def failed_message
-    puts self.assertions.inspect
-    failures = self.assertions.select{|assertion| assertion['result'] != 'passed'}
-    puts "num failures: #{failures.length}"
-    messages = failures.collect{|assertion| assertion['message']}
+  def message
+    messages = self.assertions.collect{|assertion| 
+      assertion['result'].upcase + ': ' + assertion['message']
+    }
     messages.join('\n')
   end
 end
@@ -104,17 +103,23 @@ modules.each{ |currModule|
   testsuite = testsuites.add_element('testsuite', 
     {'name' => currModule.name.split(' ')[1], 'tests' => currModule.tests.length,
       'failures' => currModule.failures, 'errors' => currModule.errors})
+  fileName = currModule.name.split(' ')[0]
+  className = fileName.sub(/\.js/, '').gsub(/\//, '.')
   currModule.tests.each{ |currTest|
     testcase = testsuite.add_element('testcase',
-    {'name' => currTest.name, 'classname' => currModule.name.split(' ')[0]})
+    {'name' => currTest.name, 'classname' => className})
     if currTest.failed      
-      testcase.add_element('failure', {'message' => currTest.failed_message})
+      testcase.add_element('failure', {'message' => currTest.message})
+    elsif
+      testcase.add_element('pass', {'message' => currTest.message})
     end
   }  
 }
 
-File.open('results-junit.xml', 'w'){|file|
-  pretty_formatter = Formatters::Pretty.new(2)
-  pretty_formatter.compact = true
-  pretty_formatter.write(doc, file)
-}
+pretty_formatter = Formatters::Pretty.new(2)
+pretty_formatter.compact = true
+pretty_formatter.write(doc, $stdout)
+
+# File.open('results-junit.xml', 'w'){|file|
+#   pretty_formatter.write(doc, file)
+# }
