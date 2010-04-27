@@ -9,8 +9,8 @@ Capybara.app_host = "http://localhost:#{ENV['SC_SERVER_PORT']}"
 
 include Capybara
 
-#visit('/cc/en/current/tests/views.html')
-#results = evaluate_script('CoreTest.plan.results')
+visit('/cc/en/current/tests/views.html')
+results = evaluate_script('CoreTest.plan.results')
 # t = find('//table')
 
 # {"failed"=>0, "warnings"=>0, "tests"=>4, "finish"=>1272374164684, 
@@ -26,7 +26,7 @@ include Capybara
 #         "module"=>"views/question.js\nCc.QuestionView", "test"=>"test description"}]}
 
 #puts results.to_yaml
-results = YAML.load_file( 'example-hash.yml' )
+#results = YAML.load_file( 'example-hash.yml' )
 #puts results.inspect
 
 class TestModule
@@ -118,8 +118,8 @@ modules.each{ |currModule|
 
 pretty_formatter = Formatters::Pretty.new(2)
 pretty_formatter.compact = true
-pretty_formatter.write(doc, $stdout)
+#pretty_formatter.write(doc, $stdout)
 
-# File.open('results-junit.xml', 'w'){|file|
-#   pretty_formatter.write(doc, file)
-# }
+File.open('results-junit.xml', 'w'){|file|
+  pretty_formatter.write(doc, file)
+}
