@@ -5,7 +5,7 @@ require 'rexml/document'
 include REXML
 
 Capybara.current_driver = :selenium
-Capybara.app_host = 'http://localhost:' ENV['SC_SERVER_PORT']
+Capybara.app_host = "http://localhost:#{ENV['SC_SERVER_PORT']}"
 
 include Capybara
 
