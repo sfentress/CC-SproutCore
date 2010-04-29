@@ -31,7 +31,7 @@ module TransformResults
     end
   end
 
-  def parseResults(results)
+  def self.parseResults(results)
     modules = []
     currentModule = nil
     currentTest = nil
@@ -58,7 +58,7 @@ module TransformResults
     modules
   end
 
-  def transform(results, out)
+  def self.transform(results, out)
     modules = parseResults(results)
  
     doc = Document.new();
