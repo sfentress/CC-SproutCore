@@ -62,15 +62,17 @@ CcChat.chatController = SC.ObjectController.create(
     
     SC.Logger.log("received: "+message.message);
     
+    SC.RunLoop.begin();
     var chatMessage = CcChat.store.createRecord(CcChat.ChatMessage, {
       author: message.author, 
       message: message.message,
       time: ""+this.now()
     });
+    SC.RunLoop.end();
   },
   
   now: function() { 
-    return new Date().format('hh:mm:ss'); 
+    return new Date().getTime();  // for now, just using time as ms, so we can order easily.
   }
   
 

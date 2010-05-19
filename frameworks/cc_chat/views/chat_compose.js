@@ -26,7 +26,7 @@ CcChat.ChatComposeView = SC.StackedView.extend(SC.StaticLayout,
 	}),
 	
 	sendView: SC.ButtonView.design({
-       layout: { centerY: 0, height: 24, right: 600, width: 100 },
+       layout: { top: 110, height: 24, right: 600, width: 100 },
        title:  "Chat!",
        action: "this.parentView.sendAction"
      }),

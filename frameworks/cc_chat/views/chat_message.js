@@ -20,6 +20,7 @@ CcChat.ChatMessageView = SC.View.extend(SC.ContentDisplay,
     var content = this.get('content');
     var author = content.get('author');
     var message = content.get('message');
+    var time = content.get('time');
     
     context = context.begin().addClass('top');
     context = context.begin('p').addClass('name').push('<b>%@</b>: %@'.fmt(author, message)).end();
