@@ -1,12 +1,12 @@
 /**
- * This is from old Geniverse code. It should be greatly cleaned up.
+ * This is from old Geniverse code. It is not being used anywhere, and is just being kept for reference.
  */
 
 // quick hack for now
 var channela = ""
 var channelb = ""
 
-ChatService = {
+_ChatService = {
 
     comet:              null,
 

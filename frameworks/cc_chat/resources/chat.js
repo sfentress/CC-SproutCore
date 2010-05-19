@@ -1,11 +1,11 @@
 /**
- * This is taken from old Geniverse code. Most of it should be refactored into chat-service.js
+ * This is from old Geniverse code. It is not being used anywhere, and is just being kept for reference.
  */
 
 var ch_main = '/main';
 var ch_org = '/org';
 
-Chat = {
+_Chat = {
   
   /**
    * Initializes the application, passing in the globally shared Comet
