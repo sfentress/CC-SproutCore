@@ -2,7 +2,7 @@
 // Project:   Demos - mainPage
 // Copyright: ©2010 My Company, Inc.
 // ==========================================================================
-/*globals Demos CC*/
+/*globals Demos CC CcChat*/
 
 // This page describes the main user interface for your application.  
 Demos.mainPage = SC.Page.design({
@@ -20,9 +20,10 @@ Demos.mainPage = SC.Page.design({
         {title: "MW Applet", value: "mwAppletView" },
         {title: "Generic Applet", value: "pedigreeAppletView" },
         {title: "Inner pages", value: "innerTabView" },
-				{title: "OR Question", value: "openResponseQuestionView" },
-				{title: "MC Question", value: "multipleChoiceQuestionView" },
-				{title: "Question Stack", value: "questionStackView" }
+	    {title: "OR Question", value: "openResponseQuestionView" },
+	    {title: "MC Question", value: "multipleChoiceQuestionView" },
+	    {title: "Question Stack", value: "questionStackView" },
+	    {title: "Chat", value: "chatView" }
       ], 
       itemTitleKey: 'title', 
       itemValueKey: 'value', 
@@ -148,6 +149,10 @@ Demos.mainPage = SC.Page.design({
 			prompt: "Third Question: What is your favorite color?",
 			choices: ["Blue", "Blue. No yell-- Auuuuuuuuuugh!"]
 		})
+	}),
+	
+	chatView: CcChat.ChatComposeView.design({
+		layout: {top: 15, left: 0, right: 0, bottom: 0}
 	})
 
 });
