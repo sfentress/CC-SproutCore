@@ -2,7 +2,7 @@
 // Project:   CcChat.chatController
 // Copyright: ©2010 My Company, Inc.
 // ==========================================================================
-/*globals CcChat Chat Faye*/
+/*globals CcChat Faye*/
 
 /** @class
 
@@ -19,12 +19,14 @@ CcChat.chatController = SC.ObjectController.create(
   
   chatHasInitted: NO,
   
+  username: "Test user",
+  
   initChat: function(arg){
     this.comet = new Faye.Client('/chat/comet');
 
     var channel = this.validate(arg);
     
-    this.comet.set_username("Test user");
+    this.comet.set_username(this.username);
     this.comet.subscribe(channel, this.receiveChat, this);
       
     this.chatHasInitted = YES;
@@ -33,17 +35,16 @@ CcChat.chatController = SC.ObjectController.create(
 
   sendChat: function(author, message){
     SC.Logger.log("trying to send: "+message);
-    var chatMessage = CcChat.store.createRecord(CcChat.ChatMessage, {author: author, message: message});
       
     if (!this.chatHasInitted){
       SC.Logger.log("initting chat");
       this.initChat('test');
     }
-    var jsonMessage = {message: chatMessage.get('message')};
-    SC.Logger.log("jsonMessage: "+jsonMessage.message);
+    
+    var jsonMessage = {author: this.username, message: message};
     this.post('test', jsonMessage);
     
-    SC.Logger.log("sent: "+chatMessage.get('message'));
+    SC.Logger.log("sent: "+message);
   },
   
   post: function(channel, jsonMessage){
@@ -59,7 +60,10 @@ CcChat.chatController = SC.ObjectController.create(
   },
   
   receiveChat: function(message){
-    alert("Weee, I received a message! "+message.message);
+    var chatMessage = CcChat.store.createRecord(CcChat.ChatMessage, {
+      author: message.author, 
+      message: message.message
+    });
   }
 
 }) ;

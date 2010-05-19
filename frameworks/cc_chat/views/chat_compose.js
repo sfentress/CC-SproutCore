@@ -36,5 +36,7 @@ CcChat.ChatComposeView = SC.StackedView.extend(SC.StaticLayout,
          var content = textField.get('value');
          var user = "User";
          CcChat.chatController.sendChat(user, content);
+         
+         textField.set('value', '');
      }
 });

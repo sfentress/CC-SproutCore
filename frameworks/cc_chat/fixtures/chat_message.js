@@ -12,12 +12,12 @@ CcChat.ChatMessage.FIXTURES = [
   // All fixture records must have a unique primary key (default 'guid').  See 
   // the example below.
 
-   { guid: 1,
-     author: "Alice",
-     message: "Hi Bob!" },
-  
-   { guid: 2,
-     author: "Bob",
-     message: "Hello to you, Alice!" }
+   // { guid: 1,
+   //   author: "Alice",
+   //   message: "Hi Bob!" },
+   //   
+   // { guid: 2,
+   //   author: "Bob",
+   //   message: "Hello to you, Alice!" }
 
 ];
