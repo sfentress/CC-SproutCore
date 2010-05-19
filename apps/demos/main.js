@@ -21,9 +21,10 @@ Demos.main = function main() {
 
   // Step 2. Set the content property on your primary controller.
   // This will make your app come alive!
-
   
-  var query = SC.Query.local(CcChat.ChatMessage);
+  CcChat.store.commitRecordsAutomatically = YES;
+  
+  var query = SC.Query.local(CcChat.ChatMessage,{orderBy: 'time'});
   var tasks = CcChat.store.find(query);
   CcChat.chatListController.set('content', tasks);
 

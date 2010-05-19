@@ -34,8 +34,7 @@ CcChat.chatController = SC.ObjectController.create(
   },
 
   sendChat: function(author, message){
-    SC.Logger.log("trying to send: "+message);
-      
+    
     if (!this.chatHasInitted){
       SC.Logger.log("initting chat");
       this.initChat('test');
@@ -60,10 +59,19 @@ CcChat.chatController = SC.ObjectController.create(
   },
   
   receiveChat: function(message){
+    
+    SC.Logger.log("received: "+message.message);
+    
     var chatMessage = CcChat.store.createRecord(CcChat.ChatMessage, {
       author: message.author, 
-      message: message.message
+      message: message.message,
+      time: ""+this.now()
     });
+  },
+  
+  now: function() { 
+    return new Date().format('hh:mm:ss'); 
   }
+  
 
 }) ;

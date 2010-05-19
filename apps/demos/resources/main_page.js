@@ -172,7 +172,8 @@ Demos.mainPage = SC.Page.design({
 				hasContentIcon: YES,
 				contentValueKey: 'message',
 				isSelectable: YES,
-				showAlternatingRows: YES
+				showAlternatingRows: YES,
+				exampleView: CcChat.ChatMessageView
       })
     })
 	})
