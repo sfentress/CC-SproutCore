@@ -66,7 +66,7 @@ CcChat.chatController = SC.ObjectController.create(
     var chatMessage = CcChat.store.createRecord(CcChat.ChatMessage, {
       author: message.author, 
       message: message.message,
-      time: ""+this.now()
+      time: this.now()
     });
     SC.RunLoop.end();
   },

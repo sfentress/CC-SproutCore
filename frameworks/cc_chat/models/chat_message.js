@@ -17,6 +17,8 @@ CcChat.ChatMessage = SC.Record.extend(
   // TODO: Add your own code here.
     author: SC.Record.attr(String),
     
-    message: SC.Record.attr(String)
+    message: SC.Record.attr(String),
+    
+    time: SC.Record.attr(Number)
 
 }) ;
