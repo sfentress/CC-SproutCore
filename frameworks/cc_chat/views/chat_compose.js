@@ -17,7 +17,7 @@ CcChat.ChatComposeView = SC.StackedView.extend(SC.StaticLayout,
   childViews: 'inputView sendView'.w(),
 	
   inputView: SC.View.design(SC.StaticLayout, {
-    layout: {left: 20, top: 5, width: 600, height: 95 },
+    layout: {left: 0, top: 0, right: 0, height: 45 },
 		useStaticLayout: YES,
 		childViews: 'textFieldView'.w(),
     textFieldView: SC.TextFieldView.design({
@@ -28,7 +28,7 @@ CcChat.ChatComposeView = SC.StackedView.extend(SC.StaticLayout,
 	}),
 	
   sendView: SC.ButtonView.design({
-    layout: { top: 110, height: 24, right: 600, width: 100 },
+    layout: { top: 60, height: 24, right: 20, width: 100 },
     title:  "Chat",
     action: "CcChat.chatComposeController.sendAction"
   })

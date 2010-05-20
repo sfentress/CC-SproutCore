@@ -157,16 +157,16 @@ Demos.mainPage = SC.Page.design({
 		childViews: 'loginView chatComposeView chatListView'.w(),
 		
 		loginView: CcChat.LoginView.design({
-  		layout: {top: 15, left: 5, right: 0, bottom: 0}
+  		layout: {top: 15, left: 20}
   	}),
   	
 		chatComposeView: CcChat.ChatComposeView.design({
-  		layout: {top: 50, left: 5, right: 0, bottom: 0}
+  		layout: {top: 80, left: 20, width: 400, bottom: 0}
   	}),
   	
   	chatListView: SC.ScrollView.design({
 		  hasHorizontalScroller: NO,
-      layout: { left: 20, top: 200, height: 250, width: 600 },
+      layout: { left: 20, top: 210, height: 250, width: 400 },
       backgroundColor: 'white',
       contentView: SC.ListView.design({
 				contentBinding: 'CcChat.chatListController.arrangedObjects',
