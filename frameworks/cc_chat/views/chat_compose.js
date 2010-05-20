@@ -21,24 +21,15 @@ CcChat.ChatComposeView = SC.StackedView.extend(SC.StaticLayout,
 		useStaticLayout: YES,
 		childViews: 'textFieldView'.w(),
     textFieldView: SC.TextFieldView.design({
-      isTextArea: YES
+      isTextArea: YES,
+      fieldValueBinding: "CcChat.chatComposeController.textAreaFieldValue",
+      valueBinding: "CcChat.chatComposeController.textAreaValue"
 		})
 	}),
 	
   sendView: SC.ButtonView.design({
     layout: { top: 110, height: 24, right: 600, width: 100 },
     title:  "Chat!",
-    action: "this.parentView.sendAction"
-  }),
-     
-  sendAction: function() {
-    var textField = this.inputView.get('textFieldView');
-    // var content = textField.get('value');
-    var content = textField.getFieldValue();
-    SC.Logger.log("content: " + content);
-    var user = "User";
-    CcChat.chatController.sendChat(user, content);
-
-    textField.set('value', '');
-  }
+    action: "CcChat.chatComposeController.sendAction"
+  })
 });
