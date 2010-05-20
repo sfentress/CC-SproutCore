@@ -29,7 +29,7 @@ CcChat.chatComposeController = SC.ObjectController.create(
     var textAreaValue = this.get('textAreaFieldValue');
     SC.Logger.log("textAreaValue: " + textAreaValue);
     var user = "User";
-    CcChat.chatController.sendChat(user, textAreaValue);
+    CcChat.chatController.sendChat(textAreaValue);
 
     this.set('textAreaValue', '');
   }

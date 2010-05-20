@@ -154,15 +154,19 @@ Demos.mainPage = SC.Page.design({
 	chatView: SC.StackedView.design({
 		layout: {top: 15, bottom: 0, left: 0, right: 0},
 		
-		childViews: 'chatComposeView chatListView'.w(),
+		childViews: 'loginView chatComposeView chatListView'.w(),
 		
+		loginView: CcChat.LoginView.design({
+  		layout: {top: 15, left: 5, right: 0, bottom: 0}
+  	}),
+  	
 		chatComposeView: CcChat.ChatComposeView.design({
-  		layout: {top: 15, left: 0, right: 0, bottom: 0}
+  		layout: {top: 50, left: 5, right: 0, bottom: 0}
   	}),
   	
   	chatListView: SC.ScrollView.design({
 		  hasHorizontalScroller: NO,
-      layout: { left: 20, top: 200, height: 200, width: 600 },
+      layout: { left: 20, top: 200, height: 250, width: 600 },
       backgroundColor: 'white',
       contentView: SC.ListView.design({
 				contentBinding: 'CcChat.chatListController.arrangedObjects',

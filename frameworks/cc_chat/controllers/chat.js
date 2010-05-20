@@ -26,14 +26,22 @@ CcChat.chatController = SC.ObjectController.create(
 
     var channel = this.validate(arg);
     
-    this.comet.set_username(this.username);
     this.comet.subscribe(channel, this.receiveChat, this);
       
     this.chatHasInitted = YES;
     return channel;
   },
+  
+  updateUsername: function(){
+    if (!this.chatHasInitted){
+      SC.Logger.log("initting chat");
+      this.initChat('test');
+    }
+    
+    this.comet.set_username(this.username);
+  }.observes('username'),
 
-  sendChat: function(author, message){
+  sendChat: function(message){
     
     if (!this.chatHasInitted){
       SC.Logger.log("initting chat");
