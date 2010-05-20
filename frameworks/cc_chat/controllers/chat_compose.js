@@ -17,7 +17,15 @@ CcChat.chatComposeController = SC.ObjectController.create(
   
   textAreaValue: null,            // for some reason, we can only set using "value" and not "fieldValue"
   
-  sendAction: function() {
+  sendOnReturnKey: function () {
+    var textAreaValue = ""+this.get('textAreaFieldValue');
+    var lastChar = textAreaValue.substr(textAreaValue.length-1,1);
+    if (lastChar === "\n"){
+      this.sendAction();
+    }
+  }.observes('textAreaFieldValue'),
+  
+  sendAction: function () {
     var textAreaValue = this.get('textAreaFieldValue');
     SC.Logger.log("textAreaValue: " + textAreaValue);
     var user = "User";
