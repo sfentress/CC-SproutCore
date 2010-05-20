@@ -16,27 +16,29 @@ CcChat.ChatComposeView = SC.StackedView.extend(SC.StaticLayout,
   // TODO: Add your own code here.
   childViews: 'inputView sendView'.w(),
 	
-	inputView: SC.View.design(SC.StaticLayout, {
-		layout: {left: 20, top: 5, width: 600, height: 95 },
+  inputView: SC.View.design(SC.StaticLayout, {
+    layout: {left: 20, top: 5, width: 600, height: 95 },
 		useStaticLayout: YES,
 		childViews: 'textFieldView'.w(),
-		textFieldView: SC.TextFieldView.design({
-			isTextArea: YES
+    textFieldView: SC.TextFieldView.design({
+      isTextArea: YES
 		})
 	}),
 	
-	sendView: SC.ButtonView.design({
-       layout: { top: 110, height: 24, right: 600, width: 100 },
-       title:  "Chat!",
-       action: "this.parentView.sendAction"
-     }),
+  sendView: SC.ButtonView.design({
+    layout: { top: 110, height: 24, right: 600, width: 100 },
+    title:  "Chat!",
+    action: "this.parentView.sendAction"
+  }),
      
-     sendAction: function() {
-         var textField = this.inputView.get('textFieldView');
-         var content = textField.get('value');
-         var user = "User";
-         CcChat.chatController.sendChat(user, content);
-         
-         textField.set('value', '');
-     }
+  sendAction: function() {
+    var textField = this.inputView.get('textFieldView');
+    // var content = textField.get('value');
+    var content = textField.getFieldValue();
+    SC.Logger.log("content: " + content);
+    var user = "User";
+    CcChat.chatController.sendChat(user, content);
+
+    textField.set('value', '');
+  }
 });
