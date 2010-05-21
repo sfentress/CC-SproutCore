@@ -13,7 +13,7 @@
 CcChat.chatController = SC.ObjectController.create(
 /** @scope CcChat.chatController.prototype */ {
   
-  comet: null,
+  comet: new Faye.Client('/chat/comet'),
   
   channel: "/dummy",
   
@@ -26,7 +26,7 @@ CcChat.chatController = SC.ObjectController.create(
         this.comet = new Faye.Client('/chat/comet');
     }
 
-    var _channel = this._validateChannel(channel);
+    var _channel = this.validateChannel(channel);
     this.set('channel', channel);
     
     var username = this.get('username');
@@ -52,7 +52,7 @@ CcChat.chatController = SC.ObjectController.create(
   },
   
   post: function(channel, jsonMessage){
-    channel = this._validateChannel(channel);
+    channel = this.validateChannel(channel);
     this.comet.publish(channel, jsonMessage);
   },
   
@@ -69,7 +69,7 @@ CcChat.chatController = SC.ObjectController.create(
     SC.RunLoop.end();
   },
   
-  _validateChannel: function(channel){
+  validateChannel: function(channel){
     if (channel.slice(0,1) != "/"){
       channel = "/"+channel;
     }
