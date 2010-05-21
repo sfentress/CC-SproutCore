@@ -21,9 +21,16 @@ CcChat.LoginView = SC.View.extend(
 		useStaticLayout: YES,
 		childViews: 'textFieldView'.w(),
     textFieldView: SC.TextFieldView.design({
-      isTextArea: YES,
-      fieldValueBinding: "CcChat.loginController.username",
-      valueBinding: "CcChat.loginController.textAreaValue"
+      isTextArea: NO,
+      valueBinding: "CcChat.loginController.textAreaValue",
+      keyUp: function (evt){
+        if (evt.keyCode === 13){
+          CcChat.loginController.login();
+        }
+        this.fieldValueDidChange();
+        evt.allowDefault(); 
+        return YES;
+      }
 		})
 	}),
 	

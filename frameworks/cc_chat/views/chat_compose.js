@@ -17,13 +17,20 @@ CcChat.ChatComposeView = SC.StackedView.extend(SC.StaticLayout,
   childViews: 'inputView sendView'.w(),
 	
   inputView: SC.View.design(SC.StaticLayout, {
-    layout: {left: 0, top: 0, right: 0, height: 45 },
+    layout: {left: 0, top: 0, right: 0, height: 35 },
 		useStaticLayout: YES,
 		childViews: 'textFieldView'.w(),
     textFieldView: SC.TextFieldView.design({
-      isTextArea: YES,
-      fieldValueBinding: "CcChat.chatComposeController.textAreaFieldValue",
-      valueBinding: "CcChat.chatComposeController.textAreaValue"
+      isTextArea: NO,
+      valueBinding: "CcChat.chatComposeController.textAreaValue",
+      keyUp: function (evt){
+        if (evt.keyCode === 13){
+          CcChat.chatComposeController.sendAction();
+        }
+        this.fieldValueDidChange();
+        evt.allowDefault(); 
+        return YES;
+      }
 		})
 	}),
 	

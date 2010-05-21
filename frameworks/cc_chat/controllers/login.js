@@ -20,16 +20,9 @@ CcChat.loginController = SC.ObjectController.create(
   
   welcomeMessage: "",
   
-  loginOnReturnKey: function () {         // should be listening for a key press instead...
-    var username = ""+this.get('username');
-    var lastChar = username.substr(username.length-1,1);
-    if (lastChar === "\n"){
-      this.login();
-    }
-  }.observes('username'),
-  
   login: function (){
-    var username = this.get('username');
+    var username = this.get('textAreaValue');
+    this.set('username', username);
     CcChat.chatController.set('username', username);
     this.set('textAreaValue', '');
     this.set('welcomeMessage', 'Welcome '+username);
