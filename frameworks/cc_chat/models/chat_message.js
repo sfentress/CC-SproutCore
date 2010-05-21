@@ -14,7 +14,6 @@
 CcChat.ChatMessage = SC.Record.extend(
 /** @scope CcChat.ChatMessage.prototype */ {
 
-  // TODO: Add your own code here.
     author: SC.Record.attr(String),
     
     message: SC.Record.attr(String),

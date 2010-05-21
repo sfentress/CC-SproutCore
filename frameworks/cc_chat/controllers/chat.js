@@ -21,6 +21,8 @@ CcChat.chatController = SC.ObjectController.create(
   
   username: "Test user",
   
+  usersInRoom: [],
+  
   initChat: function(channel){
     if (this.comet === null){
         this.comet = new Faye.Client('/chat/comet');
@@ -32,7 +34,9 @@ CcChat.chatController = SC.ObjectController.create(
     var username = this.get('username');
     this.comet.set_username(username);
     
-    this.comet.subscribe(_channel, this.receiveChat, this);
+    this.subscribeToChannel(_channel, this.receiveChat);
+    
+    this.subscribeToUserList(_channel);
       
     this.chatHasInitialized = YES;
     return channel;
@@ -67,6 +71,23 @@ CcChat.chatController = SC.ObjectController.create(
       time: this._now()
     });
     SC.RunLoop.end();
+  },
+  
+  subscribeToChannel: function(channel, callback){
+    var _channel = this.validateChannel(channel);
+    this.comet.subscribe(_channel, callback, this);
+  },
+  
+  subscribeToUserList: function(channel){
+    var _channel = this.validateChannel(channel);
+    
+    var self = this;
+    function updateUserList(message){
+      var clients = [].concat(message);
+      self.set('usersInRoom', clients);
+    }
+    
+    this.subscribeToChannel('/smeta/clients'+channel, updateUserList);
   },
   
   validateChannel: function(channel){

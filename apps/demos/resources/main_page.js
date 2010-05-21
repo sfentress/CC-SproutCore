@@ -154,7 +154,7 @@ Demos.mainPage = SC.Page.design({
 	chatView: SC.StackedView.design({
 		layout: {top: 15, bottom: 0, left: 0, right: 0},
 		
-		childViews: 'loginView chatComposeView chatListView'.w(),
+		childViews: 'loginView chatComposeView chatListView userListView'.w(),
 		
 		loginView: CcChat.LoginView.design({
   		layout: {top: 15, left: 20}
@@ -164,7 +164,7 @@ Demos.mainPage = SC.Page.design({
   		layout: {top: 80, left: 20, width: 400, bottom: 0}
   	}),
   	
-  	chatListView: SC.ScrollView.design({
+  	chatListView: SC.ScrollView.extend({
 		  hasHorizontalScroller: NO,
       layout: { left: 20, top: 210, height: 250, width: 400 },
       backgroundColor: 'white',
@@ -179,7 +179,11 @@ Demos.mainPage = SC.Page.design({
 				showAlternatingRows: YES,
 				exampleView: CcChat.ChatMessageView
       })
+    }),
+    
+    userListView: CcChat.UserListView.design({
+      layout: {top: 480, left: 20, width: 400}
     })
+    
 	})
-
 });
