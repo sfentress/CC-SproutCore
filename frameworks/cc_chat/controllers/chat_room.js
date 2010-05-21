@@ -38,7 +38,7 @@ CcChat.chatRoomController = SC.ObjectController.create(
       SC.Logger.log("newChannelName = "+newChannelName);
       
       function checkIfChannelHasSpace(numClients){
-        if (numClients <= maxClients){
+        if (numClients < maxClients){
           callback(newChannelName);
         } else {
           CcChat.chatRoomController.getFirstChannelWithSpace(newChannelName, maxClients, callback);
