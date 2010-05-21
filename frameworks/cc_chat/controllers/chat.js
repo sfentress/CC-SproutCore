@@ -17,53 +17,43 @@ CcChat.chatController = SC.ObjectController.create(
   
   channel: "/dummy",
   
-  chatHasInitted: NO,
+  chatHasInitialized: NO,
   
   username: "Test user",
   
-  initChat: function(arg){
-    this.comet = new Faye.Client('/chat/comet');
+  initChat: function(channel){
+    if (this.comet === null){
+        this.comet = new Faye.Client('/chat/comet');
+    }
 
-    var channel = this.validate(arg);
+    var _channel = this._validateChannel(channel);
+    this.set('channel', channel);
     
-    this.comet.subscribe(channel, this.receiveChat, this);
+    var username = this.get('username');
+    this.comet.set_username(username);
+    
+    this.comet.subscribe(_channel, this.receiveChat, this);
       
-    this.chatHasInitted = YES;
+    this.chatHasInitialized = YES;
     return channel;
   },
-  
-  updateUsername: function(){
-    if (!this.chatHasInitted){
-      SC.Logger.log("initting chat");
-      this.initChat('test');
-    }
-    
-    this.comet.set_username(this.username);
-  }.observes('username'),
 
   sendChat: function(message){
     
-    if (!this.chatHasInitted){
-      SC.Logger.log("initting chat");
+    if (!this.chatHasInitialized){
+      SC.Logger.log("initializing chat");
       this.initChat('test');
     }
     
     var jsonMessage = {author: this.username, message: message};
-    this.post('test', jsonMessage);
+    this.post(this.get('channel'), jsonMessage);
     
     SC.Logger.log("sent: "+message);
   },
   
   post: function(channel, jsonMessage){
-    channel = this.validate(channel);
+    channel = this._validateChannel(channel);
     this.comet.publish(channel, jsonMessage);
-  },
-  
-  validate: function(channel){
-    if (channel.slice(0,1) != "/"){
-      channel = "/"+channel;
-    }
-    return channel;
   },
   
   receiveChat: function(message){
@@ -74,12 +64,26 @@ CcChat.chatController = SC.ObjectController.create(
     var chatMessage = CcChat.store.createRecord(CcChat.ChatMessage, {
       author: message.author, 
       message: message.message,
-      time: this.now()
+      time: this._now()
     });
     SC.RunLoop.end();
   },
   
-  now: function() { 
+  _validateChannel: function(channel){
+    if (channel.slice(0,1) != "/"){
+      channel = "/"+channel;
+    }
+    return channel;
+  },
+  
+  _usernameSet: function () {
+    if (this.chatHasInitialized){
+      var username = this.get('username');
+      this.comet.set_username(username);
+    }
+  }.observes('username'),
+  
+  _now: function() { 
     return new Date().getTime();  // for now, just using time as ms, so we can order easily.
   }
   
