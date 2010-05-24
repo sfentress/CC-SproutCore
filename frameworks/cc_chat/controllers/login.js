@@ -14,18 +14,27 @@ CcChat.loginController = SC.ObjectController.create(
 /** @scope CcChat.loginController.prototype */ {
 
   // TODO: Add your own code here.
-  username: null,
   
   textAreaValue: null,
   
-  welcomeMessage: "",
+  username: null,
+  
+  usernameBinding: 'CcChat.chatController.username',
+  
+  welcomeMessage: function(){
+    var username = this.get('username');
+    if (username !== undefined && username !== null && username.length > 0){
+      return "Welcome " + username;
+    } else {
+      return "";
+    }
+  }.property('username'),
   
   login: function (){
     var username = this.get('textAreaValue');
-    this.set('username', username);
+    SC.Logger.log('setting');
     CcChat.chatController.set('username', username);
     this.set('textAreaValue', '');
-    this.set('welcomeMessage', 'Welcome '+username);
   }
 
 }) ;
