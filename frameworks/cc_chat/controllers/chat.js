@@ -19,7 +19,7 @@ CcChat.chatController = SC.ObjectController.create(
   
   chatHasInitialized: NO,
   
-  username: "Test user",
+  username: "",
   
   usersInRoom: [],
   
@@ -32,6 +32,10 @@ CcChat.chatController = SC.ObjectController.create(
     this.set('channel', channel);
     
     var username = this.get('username');
+    if (username.length < 1){
+      username = "Test User";
+      this.set('username', username);
+    }
     this.comet.set_username(username);
     
     this.subscribeToChannel(_channel, this.receiveChat);
