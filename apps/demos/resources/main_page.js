@@ -19,6 +19,7 @@ Demos.mainPage = SC.Page.design({
         {title: "Welcome", value: "demos" },
         {title: "MW Applet", value: "mwAppletView" },
         {title: "Generic Applet", value: "pedigreeAppletView" },
+		{title: "Sensor Applet", value: "sensorAppletView" },
         {title: "Inner pages", value: "innerTabView" },
 	    {title: "OR Question", value: "openResponseQuestionView" },
 	    {title: "MC Question", value: "multipleChoiceQuestionView" },
@@ -32,6 +33,88 @@ Demos.mainPage = SC.Page.design({
     })
     
   }),
+
+  sensorAppletView: SC.View.design({
+	
+	  childViews: 'sensorApplet resultsList startButton stopButton resetButton'.w(),
+	
+		resultsController: SC.ArrayController.create(),
+		
+		sensorApplet: CC.SensorAppletView.design({
+		  resultsBinding: "*parentView.resultsController",
+	      listenerPath: "Demos.mainPage.sensorAppletView.sensorApplet", // absolute path to this instance...
+	      layout: { centerX: -250, centerY: -235, width: 160, height: 40 },
+		  dataReceived: function(type, numPoints, data) {
+			SC.RunLoop.begin();
+			    var resultsController = this.get('results');
+				var content = resultsController.get('content');
+				if (content === null) {
+					content = data;
+				} else {
+			    	for (var i = 0; i < numPoints; i++) {
+						content.pushObject(data[i]);
+					}
+				}
+				resultsController.set('content', content);
+			SC.RunLoop.end();
+		  },
+		  dataStreamEvent: function(type, numPoints, data) {
+				// ignore for now
+				// SC.RunLoop.begin();
+				// SC.RunLoop.end();
+		  }
+	    }),
+	
+		resultsList: SC.ScrollView.design({
+		  hasHorizontalScroller: NO,
+          layout: { centerX: 0, centerY: 0, height: 350, width: 300 },
+      	  backgroundColor: 'white',
+          contentView: SC.ListView.design({
+				contentBinding: 'Demos.mainPage.sensorAppletView.resultsController.arrangedObjects',
+				selectionBinding: 'Demos.mainPage.sensorAppletView.resultsController.selection',
+				rowHeight: 30,
+				canEditContent: NO,
+				hasContentIcon: NO,
+				// contentValueKey: 'info',
+				isSelectable: YES
+          })
+        }),
+	
+		startButton: SC.ButtonView.design({
+			layout: { centerY: -235, centerX: -85, height: 50, width: 80},
+			title: "Start",
+			appletBinding: "*parentView.sensorApplet",
+			action: function() {
+				this.get('applet').run(this.appletAction);
+			},
+			appletAction: function(applet) {
+				applet.startCollecting();
+			}
+		}),
+
+		stopButton: SC.ButtonView.design({
+			layout: { centerY: -235, centerX: 0, height: 50, width: 80},
+			title: "Stop",
+			appletBinding: "*parentView.sensorApplet",
+			action: function() {
+				this.get('applet').run(this.appletAction);
+			},
+			appletAction: function(applet) {
+				applet.stopCollecting();
+			}
+		}),
+
+		resetButton: SC.ButtonView.design({
+			layout: { centerY: -235, centerX: 85, height: 50, width: 80},
+			title: "Reset",
+			appletBinding: "*parentView.resultsList",
+			resultsBinding: "Demos.mainPage.sensorAppletView.resultsController",
+			action: function() {
+				var controller = this.get('results');
+				controller.set('content', []);
+			}
+		})
+	}),
   
   // sample MW applet view
   mwAppletView: SC.View.design({

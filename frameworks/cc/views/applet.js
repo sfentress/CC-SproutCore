@@ -38,6 +38,7 @@ CC.AppletView = SC.View.extend(
 	  appletContext.attr('code', this.get('code'));
 	  appletContext.attr('width', '100%');
 	  appletContext.attr('height', this.get('height'));
+	  appletContext.attr('MAYSCRIPT', 'true');
 		appletContext.push(this.get('params'));
 		appletContext.end();
   },

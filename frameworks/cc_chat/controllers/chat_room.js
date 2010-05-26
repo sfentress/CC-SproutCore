@@ -39,8 +39,8 @@ CcChat.chatRoomController = SC.ObjectController.create(
    */
   getFirstChannelWithSpace: function (baseChannelName, maxClients, callback){
     (function(baseChannelName, maxClients, callback){
-      baseChannelName = CcChat.chatController.validateChannel(baseChannelName);
-      var channelNameParts = baseChannelName.split('/');
+      baseChannelName = this.validateChannel(baseChannelName);
+      var channelNameParts = baseChannelName.split('//');
       var baseName = channelNameParts[0];
       
       var nextNum = 0;
@@ -81,7 +81,14 @@ CcChat.chatRoomController = SC.ObjectController.create(
             
       var comet = CcChat.chatController.comet;
       comet.subscribe('/smeta/clients'+channel, returnNumberOfClients, this);
-      })(channel, callback);
+    })(channel, callback);
+  },
+    
+  validateChannel: function(channel){
+    if (channel.slice(0,1) != "/"){
+      channel = "/"+channel;
     }
+    return channel;
+  }
   
 }) ;
