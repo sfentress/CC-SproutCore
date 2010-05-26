@@ -16,11 +16,11 @@ CcChat.chatRoomController = SC.ObjectController.create(
   channel: "",                  // the main channel that the user will chat in
   
   baseChannelName: function(){    // if channels are dynamically assigned, e.g. 'myRoom/1', this would be 'myRoom'
-    return this.get('channel').split('/')[0];
+    return this.get('channel').split('NUM')[0];
   }.property('channel'),
   
   channelIndex:  function(){    // if channels are dynamically assigned, e.g. 'myRoom/1', this would be 1
-    var channelNameParts = this.get('channel').split('/');
+    var channelNameParts = this.get('channel').split('NUM');
     if (channelNameParts.length > 1){
       return parseInt(channelNameParts[channelNameParts.length-1], 10);
     } else {
@@ -39,8 +39,8 @@ CcChat.chatRoomController = SC.ObjectController.create(
    */
   getFirstChannelWithSpace: function (baseChannelName, maxClients, callback){
     (function(baseChannelName, maxClients, callback){
-      baseChannelName = this.validateChannel(baseChannelName);
-      var channelNameParts = baseChannelName.split('//');
+      baseChannelName = CcChat.chatRoomController.validateChannel(baseChannelName);
+      var channelNameParts = baseChannelName.split('NUM');
       var baseName = channelNameParts[0];
       
       var nextNum = 0;
@@ -49,7 +49,7 @@ CcChat.chatRoomController = SC.ObjectController.create(
         nextNum = prevNum + 1;
       }
       
-      var newChannelName = baseName + "/" + nextNum;
+      var newChannelName = baseName + "NUM" + nextNum;
       SC.Logger.log("newChannelName = "+newChannelName);
       
       function checkIfChannelHasSpace(numClients){

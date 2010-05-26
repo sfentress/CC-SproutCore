@@ -36,7 +36,6 @@ CcChat.loginController = SC.ObjectController.create(
   
   login: function (){
     var username = this.get('textAreaValue');
-    SC.Logger.log('setting');
     CcChat.chatController.set('username', username);
     this.set('textAreaValue', '');
   }
