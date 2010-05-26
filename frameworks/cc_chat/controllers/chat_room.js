@@ -39,7 +39,7 @@ CcChat.chatRoomController = SC.ObjectController.create(
    */
   getFirstChannelWithSpace: function (baseChannelName, maxClients, callback){
     (function(baseChannelName, maxClients, callback){
-      baseChannelName = this.validateChannel(baseChannelName);
+      baseChannelName = CcChat.chatRoomController.validateChannel(baseChannelName);
       var channelNameParts = baseChannelName.split('//');
       var baseName = channelNameParts[0];
       
