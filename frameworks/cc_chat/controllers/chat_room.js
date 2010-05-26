@@ -22,7 +22,7 @@ CcChat.chatRoomController = SC.ObjectController.create(
   channelIndex:  function(){    // if channels are dynamically assigned, e.g. 'myRoom/1', this would be 1
     var channelNameParts = this.get('channel').split('/');
     if (channelNameParts.length > 1){
-      return parseInt(channelNameParts[1], 10);
+      return parseInt(channelNameParts[channelNameParts.length-1], 10);
     } else {
       return 0;
     }
