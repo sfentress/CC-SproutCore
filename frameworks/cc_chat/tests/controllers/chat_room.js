@@ -8,8 +8,13 @@ module("CcChat.chatRoomController");
 
 // TODO: Replace with real unit test for CcChat.chatRoomController
 test("test description", function() {
-  var expected = "test";
-  var result   = "test";
-  equals(result, expected, "test should equal test");
+  CcChat.chatRoomController.set('channel', 'myRoom/2');
+  
+  var base = CcChat.chatRoomController.get('baseChannelName');
+  equals(base, 'myRoom', "base should equal myRoom");
+  
+  
+  var index = CcChat.chatRoomController.get('channelIndex');
+  equals(index, 2, "index should equal 2");
 });
 
