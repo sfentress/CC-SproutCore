@@ -15,7 +15,9 @@ CcChat.chatController = SC.ObjectController.create(
   
   comet: new Faye.Client('/chat/comet'),
   
-  channel: "/dummy",
+  channel: "",
+  
+  channelBinding: 'CcChat.chatRoomController.channel',
   
   chatHasInitialized: NO,
   

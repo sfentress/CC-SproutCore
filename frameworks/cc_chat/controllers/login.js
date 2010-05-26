@@ -6,7 +6,11 @@
 
 /** @class
 
-  (Document Your Controller Here)
+  This view currently does nothing but set the 'username' property on
+  chatController. However, it can be used by other views that want to
+  hook into the login process. For instance, if the students start out
+  seeing a login field, a controller can be watching the username property
+  on chatController and, once it is set, log in and start up the application.
 
   @extends SC.Object
 */
