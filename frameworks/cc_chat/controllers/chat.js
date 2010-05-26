@@ -15,10 +15,6 @@ CcChat.chatController = SC.ObjectController.create(
   
   comet: new Faye.Client('/chat/comet'),
   
-  channel: "",
-  
-  channelBinding: 'CcChat.chatRoomController.channel',
-  
   chatHasInitialized: NO,
   
   username: "",
@@ -30,8 +26,8 @@ CcChat.chatController = SC.ObjectController.create(
         this.comet = new Faye.Client('/chat/comet');
     }
 
-    var _channel = this.validateChannel(channel);
-    this.set('channel', channel);
+    var _channel = CcChat.chatRoomController.validateChannel(channel);
+    CcChat.chatRoomController.set('channel', channel);
     
     var username = this.get('username');
     if (username.length < 1){
@@ -56,13 +52,13 @@ CcChat.chatController = SC.ObjectController.create(
     }
     
     var jsonMessage = {author: this.username, message: message};
-    this.post(this.get('channel'), jsonMessage);
+    this.post(CcChat.chatRoomController.get('channel'), jsonMessage);
     
     SC.Logger.log("sent: "+message);
   },
   
   post: function(channel, jsonMessage){
-    channel = this.validateChannel(channel);
+    channel = CcChat.chatRoomController.validateChannel(channel);
     this.comet.publish(channel, jsonMessage);
   },
   
@@ -80,12 +76,12 @@ CcChat.chatController = SC.ObjectController.create(
   },
   
   subscribeToChannel: function(channel, callback){
-    var _channel = this.validateChannel(channel);
+    var _channel = CcChat.chatRoomController.validateChannel(channel);
     this.comet.subscribe(_channel, callback, this);
   },
   
   subscribeToUserList: function(channel){
-    var _channel = this.validateChannel(channel);
+    var _channel = CcChat.chatRoomController.validateChannel(channel);
     
     var self = this;
     function updateUserList(message){
@@ -94,13 +90,6 @@ CcChat.chatController = SC.ObjectController.create(
     }
     
     this.subscribeToChannel('/smeta/clients'+channel, updateUserList);
-  },
-  
-  validateChannel: function(channel){
-    if (channel.slice(0,1) != "/"){
-      channel = "/"+channel;
-    }
-    return channel;
   },
   
   _usernameSet: function () {
