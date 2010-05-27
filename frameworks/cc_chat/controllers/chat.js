@@ -21,6 +21,8 @@ CcChat.chatController = SC.ObjectController.create(
   
   usersInRoom: [],
   
+  latestChat: null,       // other controllers can hook into this
+  
   initChat: function(channel){
     if (this.comet === null){
         this.comet = new Faye.Client('/chat/comet');
@@ -72,6 +74,7 @@ CcChat.chatController = SC.ObjectController.create(
       message: message.message,
       time: this._now()
     });
+    this.set('latestChat', chatMessage);
     SC.RunLoop.end();
   },
   
