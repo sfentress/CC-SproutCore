@@ -18,11 +18,14 @@ CC.SensorAppletView = CC.AppletView.extend(
 	
 	// This is the Javascript object path to the listener function... eg App.mainPage.mainPane.sensorApplet.sensorListener
 	listenerPath: 'defaultDataListener',
+	
+	appletName: "sensorApplet",
 
 	params: function() {    // adds cml url as the param to the mw applet
 		return [
 			'<param name="resource" value="' + this.get('resourcePath') + '" />',
-			'<param name="listenerPath" value="' + this.get('listenerPath') + '" />'
+			'<param name="listenerPath" value="' + this.get('listenerPath') + '" />',
+			'<param name="name" value="' + this.get('appletName') + '" />'
 		].join("");
 	}.property('resourcePath'),
 	
