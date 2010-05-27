@@ -13,7 +13,13 @@
 CcChat.chatController = SC.ObjectController.create(
 /** @scope CcChat.chatController.prototype */ {
   
-  comet: new Faye.Client('/chat/comet'),
+  comet: function() {
+	  // If the Faye library is initialized, set up a client.
+		if(typeof(Faye) !== 'undefined') {
+	  	return new Faye.Client('/chat/comet');
+		}
+		return null;
+	}(),
   
   chatHasInitialized: NO,
   
