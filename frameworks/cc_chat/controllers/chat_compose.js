@@ -24,6 +24,7 @@ CcChat.chatComposeController = SC.ObjectController.create(
     CcChat.chatController.sendChat(textAreaValue, this.get('item'));
 
     this.set('textAreaValue', '');
+    this.set('item', null);
   },
   
   imageUrl: function() {
@@ -40,6 +41,19 @@ CcChat.chatComposeController = SC.ObjectController.create(
     } else {
       return 0;
     }
-  }.property('imageUrl')
+  }.property('imageUrl'),
+  
+  clearButtonTitle: 'Remove item',
+  
+  showClearButton: function() {
+    if (this.get('item') !== null){
+      return true;
+    }
+    return false;
+  }.property('item'),
+  
+  clearItem: function() {
+    this.set('item', null);
+  }
 
 }) ;
