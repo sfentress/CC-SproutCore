@@ -38,8 +38,7 @@ CcChat.chatComposeController = SC.ObjectController.create(
     if (this.get('imageUrl').length > 0){
       return 40;
     } else {
-      // return 0;
-      return 40;
+      return 0;
     }
   }.property('imageUrl')
 

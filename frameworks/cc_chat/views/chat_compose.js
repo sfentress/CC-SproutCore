@@ -21,7 +21,7 @@ CcChat.ChatComposeView = SC.StackedView.extend(SC.StaticLayout,
   // imageWidthBinding: 'CcChat.chatComposeController.imageWidth',
 	
   inputView: SC.View.design(SC.StaticLayout, {
-    layout: {left: CcChat.chatComposeController.get('imageWidth'), top: 0, right: 0, height: 35 },
+    layout: {left: 0, top: 0, right: 0, height: 35 },
 		useStaticLayout: YES,
 		childViews: 'textFieldView'.w(),
     textFieldView: SC.TextFieldView.design({
@@ -56,5 +56,11 @@ CcChat.ChatComposeView = SC.StackedView.extend(SC.StaticLayout,
     layout: { top: 60, height: 24, right: 20, width: 100 },
     title:  "Chat",
     action: "CcChat.chatComposeController.sendAction"
-  })
+  }),
+  
+  _adjust_size: function() {
+    SC.Logger.log("adjusting size!!!");
+    var newWidth = CcChat.chatComposeController.get('imageWidth');
+    this.inputView.adjust('left', newWidth);
+  }.observes('CcChat.chatComposeController.item')
 });
