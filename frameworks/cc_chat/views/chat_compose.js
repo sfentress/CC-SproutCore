@@ -14,10 +14,14 @@ CcChat.ChatComposeView = SC.StackedView.extend(SC.StaticLayout,
 /** @scope CcChat.ChatComposeView.prototype */ {
 
   // TODO: Add your own code here.
-  childViews: 'inputView sendView'.w(),
+  childViews: 'inputView imageView clearImageView sendView'.w(),
+  
+  // imageWidth: 50,
+  
+  // imageWidthBinding: 'CcChat.chatComposeController.imageWidth',
 	
   inputView: SC.View.design(SC.StaticLayout, {
-    layout: {left: 0, top: 0, right: 0, height: 35 },
+    layout: {left: CcChat.chatComposeController.get('imageWidth'), top: 0, right: 0, height: 35 },
 		useStaticLayout: YES,
 		childViews: 'textFieldView'.w(),
     textFieldView: SC.TextFieldView.design({
@@ -33,6 +37,20 @@ CcChat.ChatComposeView = SC.StackedView.extend(SC.StaticLayout,
       }
 		})
 	}),
+	
+  imageView: SC.ImageView.design({
+    layout: {top: 2, left: 0, height: 35, width: this.imageWidth},
+    value: '',
+    valueBinding: 'CcChat.chatComposeController.imageUrl'
+  }),
+  
+  clearImageView: SC.ButtonView.design({
+    layout: { top: 60, height: 24, right: 125, width: 120 },
+    title:  "Remove dragon",
+    target: 'Geniverse.challangeController',
+    action: "clearDragon",
+    isVisibleBinding: 'Geniverse.challangeController.showClearButton'
+  }),
 	
   sendView: SC.ButtonView.design({
     layout: { top: 60, height: 24, right: 20, width: 100 },

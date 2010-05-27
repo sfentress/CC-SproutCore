@@ -18,6 +18,8 @@ CcChat.ChatMessage = SC.Record.extend(
     
     message: SC.Record.attr(String),
     
-    time: SC.Record.attr(Number)
+    time: SC.Record.attr(Number),
+    
+    item: SC.Record.attr(Object)     // if items[0] is a json object with the attr imageUrl, that image will be shown in chat
 
 }) ;

@@ -46,14 +46,13 @@ CcChat.chatController = SC.ObjectController.create(
     return channel;
   },
 
-  sendChat: function(message){
+  sendChat: function(message, item){
     
     if (!this.chatHasInitialized){
       SC.Logger.log("initializing chat");
       this.initChat('test');
     }
-    
-    var jsonMessage = {author: this.username, message: message};
+    var jsonMessage = {author: this.username, message: message, item: item};
     this.post(CcChat.chatRoomController.get('channel'), jsonMessage);
     
     SC.Logger.log("sent: "+message);
@@ -72,7 +71,8 @@ CcChat.chatController = SC.ObjectController.create(
     var chatMessage = CcChat.store.createRecord(CcChat.ChatMessage, {
       author: message.author, 
       message: message.message,
-      time: this._now()
+      time: this._now(),
+      item: message.item
     });
     this.set('latestChat', chatMessage);
     SC.RunLoop.end();
