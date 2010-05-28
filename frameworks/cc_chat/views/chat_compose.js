@@ -55,7 +55,6 @@ CcChat.ChatComposeView = SC.StackedView.extend(SC.StaticLayout,
   }),
   
   _adjust_size: function() {
-    SC.Logger.log("adjusting size!!!");
     var newWidth = CcChat.chatComposeController.get('imageWidth');
     this.inputView.adjust('left', newWidth);
   }.observes('CcChat.chatComposeController.item')

@@ -15,6 +15,8 @@ CcChat.ChatMessageView = SC.View.extend(SC.ContentDisplay,
   
   contentDisplayProperties: 'author message'.w(),
   
+  useStaticLayout: YES,
+  
   // TODO: Add your own code here.
   render: function(context, firstTime) {
     var content = this.get('content');
