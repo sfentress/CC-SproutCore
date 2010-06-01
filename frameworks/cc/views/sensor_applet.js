@@ -68,7 +68,7 @@ CC.SensorAppletView = CC.AppletView.extend(
 		return params.join("");
 	}.property('resourcePath'),
 	
-	jarUrls: ['http://jnlp.concord.org/dev/org/concord/sensor/sensor-applets/sensor-applets.jar?version-id=0.1.0-20100601.133507-13',
+	jarUrls: ['http://jnlp.concord.org/dev/org/concord/sensor/sensor-applets/sensor-applets.jar?version-id=0.1.0-20100601.160817-14',
 						'http://jnlp.concord.org/dev/org/concord/otrunk/otrunk.jar?version-id=0.2.0-20100519.081729-231',
 						'http://jnlp.concord.org/dev/org/concord/framework/framework.jar?version-id=0.1.0-20100518.155205-550',
 						'http://jnlp.concord.org/dev/org/concord/frameworkview/frameworkview.jar?version-id=0.1.0-20100518.160605-394',
@@ -89,6 +89,27 @@ CC.SensorAppletView = CC.AppletView.extend(
 	
 	classNames: "sensor-applet",
 	
-	layout: { centerX: 0, centerY: 0, width: 160, height: 40 }     // defaults
+	layout: { centerX: 0, centerY: 0, width: 160, height: 40 },     // defaults
+	
+	start: function() {
+		this.set('sensorState', 'running');
+		if (this.get('isSafari') == NO) {
+			this.run(function(applet) { applet.startCollecting(); });
+		}
+	},
+	
+	stop: function() {
+		this.set('sensorState', 'stopped');
+		if (this.get('isSafari') == NO) {
+			this.run(function(applet) { applet.stopCollecting(); });
+		}
+	},
+	
+	reset: function() {
+		this.set('sensorState', 'ready');
+		if (this.get('isSafari') == NO) {
+			this.run(function(applet) { applet.stopCollecting(); });
+		}
+	}
 
 });
