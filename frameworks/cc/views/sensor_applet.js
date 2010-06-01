@@ -93,21 +93,21 @@ CC.SensorAppletView = CC.AppletView.extend(
 	
 	start: function() {
 		this.set('sensorState', 'running');
-		if (this.get('isSafari') == NO) {
+		if (this.get('isSafari') == NO || this.get('sensorStatePath') === null) {
 			this.run(function(applet) { applet.startCollecting(); });
 		}
 	},
 	
 	stop: function() {
 		this.set('sensorState', 'stopped');
-		if (this.get('isSafari') == NO) {
+		if (this.get('isSafari') == NO || this.get('sensorStatePath') === null) {
 			this.run(function(applet) { applet.stopCollecting(); });
 		}
 	},
 	
 	reset: function() {
 		this.set('sensorState', 'ready');
-		if (this.get('isSafari') == NO) {
+		if (this.get('isSafari') == NO || this.get('sensorStatePath') === null) {
 			this.run(function(applet) { applet.stopCollecting(); });
 		}
 	}
