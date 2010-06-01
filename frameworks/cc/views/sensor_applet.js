@@ -19,14 +19,24 @@ CC.SensorAppletView = CC.AppletView.extend(
 	// This is the Javascript object path to the listener function... eg App.mainPage.mainPane.sensorApplet.sensorListener
 	listenerPath: 'defaultDataListener',
 	
+	// this is the javascript object patch to a String variable which will store the current sensor applet's state: "ready", "running", "stopped"
+	sensorStatePath: null,
+	// the current sensor applet's state: "ready", "running", "stopped". If sensorStatePath is set, the applet will watch this variable for changes to trigger
+	// starting and stopping the sensors. This is necessary on Safari on Mac OSX since the javascript can sometimes not call applet methods directly.
+	sensorState: "ready",
+	
 	appletName: "sensorApplet",
 
 	params: function() {    // adds cml url as the param to the mw applet
-		return [
+		var params = [
 			'<param name="resource" value="' + this.get('resourcePath') + '" />',
 			'<param name="listenerPath" value="' + this.get('listenerPath') + '" />',
 			'<param name="name" value="' + this.get('appletName') + '" />'
-		].join("");
+		];
+		if (this.get('sensorStatePath') !== null) {
+			params.pushObject('<param name="sensorStatePath" value="' + this.get('sensorStatePath') + '" />');
+		}
+		return params.join("");
 	}.property('resourcePath'),
 	
 	jarUrls: ['http://jnlp.concord.org/dev/org/concord/sensor/sensor-applets/sensor-applets.jar?version-id=0.1.0-20100601.133507-13',
