@@ -50,6 +50,16 @@ CC.SensorAppletView = CC.AppletView.extend(
 	
 	classNames: "sensor-applet",
 	
-	layout: { centerX: 0, centerY: 0, width: 160, height: 40 }     // defaults
+	layout: { centerX: 0, centerY: 0, width: 160, height: 40 },     // defaults
+	
+	// these need to be overridden when implemented, if you want to use this view as the data listener
+	// called whenever data is received in the sensor. dataPoints is an array of floats
+	dataRecieved: function(dataType, numberOfDataPoints, dataPoints) {},
+	
+	// called whenever meta data about the data stream changes
+	dataStreamEvent: function(dataType, numberOfDataPoints, dataPoints) {},
+	
+	// called when the applet is done initializing itself, and the sensors are ready to be used
+	sensorsReady: function() {}
 
 });
