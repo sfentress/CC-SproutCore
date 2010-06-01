@@ -10,7 +10,7 @@
 
   @extends SC.View
 */
-CcChat.ChatComposeView = SC.StackedView.extend(SC.StaticLayout,
+CcChat.ChatComposeView = SC.View.extend(SC.StaticLayout,
 /** @scope CcChat.ChatComposeView.prototype */ {
 
   // TODO: Add your own code here.

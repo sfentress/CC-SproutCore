@@ -21,6 +21,7 @@ CcChat.ChatMessageView = SC.View.extend(SC.ContentDisplay,
   render: function(context, firstTime) {
     var content = this.get('content');
     var author = content.get('author');
+    author = (author === null) ? "" : author;
     var message = content.get('message');
     var time = content.get('time');
     var imageUrlStr = "";
