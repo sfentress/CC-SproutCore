@@ -70,10 +70,12 @@ CcChat.chatController = SC.ObjectController.create(
   },
   
   receiveChat: function(message){
-    
     SC.Logger.log("received: "+message.message);
-    
-    SC.RunLoop.begin();
+    this.addMessage(message);
+  },
+  
+  addMessage: function(message){
+  SC.RunLoop.begin();
     var chatMessage = CcChat.store.createRecord(CcChat.ChatMessage, {
       author: message.author, 
       message: message.message,
