@@ -10,6 +10,8 @@
 
   @extends SC.Object
 */
+
+// require('http://geniverse.dev.concord.org/chat/comet.js');
 CcChat.chatController = SC.ObjectController.create(
 /** @scope CcChat.chatController.prototype */ {
   
@@ -47,8 +49,10 @@ CcChat.chatController = SC.ObjectController.create(
     this.subscribeToChannel(_channel, this.receiveChat);
     
     this.subscribeToUserList(_channel);
-      
-    this.chatHasInitialized = YES;
+    //  SC.Logger.log("initializing chat....");
+    CcChat.chatController.set('chatHasInitialized', YES);
+    this.propertyDidChange('chatHasInitialized');
+    // this.chatHasInitialized = YES;
     return channel;
   },
 
@@ -66,6 +70,7 @@ CcChat.chatController = SC.ObjectController.create(
   
   post: function(channel, jsonMessage){
     channel = CcChat.chatRoomController.validateChannel(channel);
+    SC.Logger.log("sending on "+channel);
     this.comet.publish(channel, jsonMessage);
   },
   
