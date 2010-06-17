@@ -34,7 +34,7 @@ module("CC.MultipleChoiceQuestionView", {
 test("multiple choice question should contain choice radio buttons", function() {
   var input = mwChoiceViewRendered.$('.question-input');
   
-  ok(input.find('input').size() === 5, "There should be five choices");
+  ok(input.find('.sc-button-label').size() === 5, "There should be five choices but was "+input.find('.sc-button-label').size());
   
   var firstChoice = input.find('.sc-button-label').first().html();
   equals(firstChoice, "one", "first choice should be 'one'");
