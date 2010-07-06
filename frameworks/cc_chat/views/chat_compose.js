@@ -41,7 +41,7 @@ CcChat.ChatComposeView = SC.View.extend(SC.StaticLayout,
   }),
   
   clearImageView: SC.ButtonView.design({
-    layout: { top: 60, height: 24, right: 125, width: 120 },
+    layout: { top: 45, height: 24, right: 125, width: 120 },
     titleBinding:  'CcChat.chatComposeController.clearButtonTitle',
     target: 'CcChat.chatComposeController',
     action: "clearItem",
@@ -49,7 +49,7 @@ CcChat.ChatComposeView = SC.View.extend(SC.StaticLayout,
   }),
 	
   sendView: SC.ButtonView.design({
-    layout: { top: 60, height: 24, right: 20, width: 100 },
+    layout: { top: 45, height: 24, right: 20, width: 100 },
     title:  "Chat",
     action: "CcChat.chatComposeController.sendAction"
   }),
