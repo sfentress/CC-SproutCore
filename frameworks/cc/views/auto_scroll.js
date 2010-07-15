@@ -21,10 +21,8 @@ CC.AutoScrollView = SC.ScrollView.extend(
       var maxY = self.get('maximumVerticalScrollOffset');
       self.set('verticalScrollOffset', maxY) ;
     }
-    SC.Timer.schedule({
-			action: scrollToMax,
-			interval: 100,
-			repeats: NO
-		});
+    // double invoke last -- this fixes a problem where it would sometimes
+    // not scroll far enough, leaving the last item or 2 still not showing
+    self.invokeLast(function() { self.invokeLast(scrollToMax); });
   }.observes('autoScrollTrigger')
 });
