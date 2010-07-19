@@ -23,7 +23,15 @@ CcChat.loginController = SC.ObjectController.create(
   
   username: null,
   
+  passwordValue: null,
+  
+  retypePasswordValue: null,
+  
   usernameBinding: 'CcChat.chatController.username',
+  
+  showRetypeField: NO,
+  
+  test: 35,
   
   welcomeMessage: function(){
     var username = this.get('username');
@@ -38,6 +46,21 @@ CcChat.loginController = SC.ObjectController.create(
     var username = this.get('textAreaValue');
     CcChat.chatController.set('username', username);
     this.set('textAreaValue', '');
+  },
+  
+  register: function (){
+    if (!this.get('showRetypeField')){
+      this.set('showRetypeField', YES);
+    } else {
+      if (this.get('passwordValue') === this.get('retypePasswordValue')){
+        var username = this.get('textAreaValue');
+        alert("Welcome "+username + "!");
+        CcChat.chatController.set('username', username);
+        
+      } else {
+        alert("The two passwords do not match");
+      }
+    }
   }
 
 }) ;
