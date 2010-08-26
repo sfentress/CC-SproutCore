@@ -10,6 +10,8 @@
 
   @extends CC.AppletView
 */
+sc_require('views/applet');
+
 CC.SensorAppletView = CC.AppletView.extend(
 /** @scope CC.SensorAppletView.prototype */ {
 	

@@ -11,7 +11,6 @@
   @extends SC.Object
 */
 
-// require('http://geniverse.dev.concord.org/chat/comet.js');
 CcChat.chatController = SC.ObjectController.create(
 /** @scope CcChat.chatController.prototype */ {
   
