@@ -14,13 +14,11 @@
 CcChat.chatController = SC.ObjectController.create(
 /** @scope CcChat.chatController.prototype */ {
   
-  comet: function() {
+  comet: function () {
 	  // If the Faye library is initialized, set up a client.
-		if(typeof(Faye) !== 'undefined') {
-	  	return new Faye.Client('/chat/comet');
-		}
-		return null;
-	}(),
+		if (!this._comet) this._comet = typeof('Faye') !== 'undefined' ? new Faye.Client('/chat/comet') : null;
+		return this._comet;
+	}.property().cacheable(),
   
   chatHasInitialized: NO,
   
@@ -30,11 +28,7 @@ CcChat.chatController = SC.ObjectController.create(
   
   latestChat: null,       // other controllers can hook into this
   
-  initChat: function(channel){
-    if (this.comet === null){
-        this.comet = new Faye.Client('/chat/comet');
-    }
-
+  initChat: function (channel) {
     var _channel = CcChat.chatRoomController.validateChannel(channel);
     CcChat.chatRoomController.set('channel', channel);
     
@@ -43,7 +37,7 @@ CcChat.chatController = SC.ObjectController.create(
       username = "Test User";
       this.set('username', username);
     }
-    this.comet.set_username(username);
+    this.get('comet').set_username(username);
     
     this.subscribeToChannel(_channel, this.receiveChat);
     
@@ -70,7 +64,7 @@ CcChat.chatController = SC.ObjectController.create(
   post: function(channel, jsonMessage){
     channel = CcChat.chatRoomController.validateChannel(channel);
     SC.Logger.log("sending on "+channel);
-    this.comet.publish(channel, jsonMessage);
+    this.get('comet').publish(channel, jsonMessage);
   },
   
   receiveChat: function(message){
@@ -92,7 +86,7 @@ CcChat.chatController = SC.ObjectController.create(
   
   subscribeToChannel: function(channel, callback){
     var _channel = CcChat.chatRoomController.validateChannel(channel);
-    this.comet.subscribe(_channel, callback, this);
+    this.get('comet').subscribe(_channel, callback, this);
   },
   
   subscribeToUserList: function(channel){
@@ -110,7 +104,7 @@ CcChat.chatController = SC.ObjectController.create(
   _usernameSet: function () {
     if (this.chatHasInitialized){
       var username = this.get('username');
-      this.comet.set_username(username);
+      this.get('comet').set_username(username);
     }
   }.observes('username'),
   

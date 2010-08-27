@@ -68,23 +68,23 @@ CcChat.chatRoomController = SC.ObjectController.create(
   /**
    * Callback should be a function that takes a number (the clients in the room).
    */
-  getNumClientsInChannel: function(channel, callback){
+  getNumClientsInChannel: function (channel, callback) {
     (function(channel, callback){
       function returnNumberOfClients(message){
         var numClients = [].concat(message);
         SC.Logger.log("clients in "+channel+": "+numClients);
-        var comet = CcChat.chatController.comet;
+        var comet = CcChat.chatController.get('comet');
         comet.unsubscribe('/smeta/clients'+channel);
                 
         callback(numClients.length, channel);
       }
             
-      var comet = CcChat.chatController.comet;
+      var comet = CcChat.chatController.get('comet');
       comet.subscribe('/smeta/clients'+channel, returnNumberOfClients, this);
     })(channel, callback);
   },
     
-  validateChannel: function(channel){
+  validateChannel: function(channel) {
     if (channel.slice(0,1) != "/"){
       channel = "/"+channel;
     }
