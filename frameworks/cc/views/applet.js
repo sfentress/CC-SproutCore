@@ -19,6 +19,8 @@ CC.AppletView = SC.View.extend(
   
   params: '',     // any params, as html. e.g. '<param name="script" value="..."/>'
   
+  codebase: '',   // A path that is used as a suffix for all requests by the applet for resources. e.g '/jnlp' 
+  
   width: 600,
   
   height: 400,
@@ -36,6 +38,7 @@ CC.AppletView = SC.View.extend(
 	  appletContext.attr('id', this.get('appletId'));
 	  appletContext.attr('archive', this.get('jarUrls'));
 	  appletContext.attr('code', this.get('code'));
+	  appletContext.attr('codebase', this.get('codebase'));
 	  appletContext.attr('width', '100%');
 	  appletContext.attr('height', this.get('height'));
 	  appletContext.attr('MAYSCRIPT', 'true');
