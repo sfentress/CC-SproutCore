@@ -32,8 +32,13 @@ CC.SensorAppletView = CC.AppletView.extend(
 	
 	// END OVERRIDES!!!
 	
-	// TODO This only supports a Vernier GoMotion right now...
-	resourcePath: '/simple.otml',
+	// Using the sensor-applets jnlp system the following probe otml resources are 
+	// currently available in the sensor-applets.jar:
+	//
+	//   /distance.otml
+	//   /temperature.otml
+	//   light.otml
+	resourcePath: '/distance.otml',
 	
 	isSafari: function() {
 		// detect safari
