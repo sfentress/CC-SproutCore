@@ -58,14 +58,12 @@ CC.SensorAppletView = CC.AppletView.extend(
 	// the current sensor applet's state: "ready", "running", "stopped". If sensorStatePath is set, the applet will watch this variable for changes to trigger
 	// starting and stopping the sensors. This is necessary on Safari on Mac OSX since the javascript can sometimes not call applet methods directly.
 	sensorState: "ready",
-	
-	appletName: "sensorApplet",
 
 	params: function() {    // adds cml url as the param to the mw applet
 		var params = [
 			'<param name="resource" value="' + this.get('resourcePath') + '" />',
 			'<param name="listenerPath" value="' + this.get('listenerPath') + '" />',
-			'<param name="name" value="' + this.get('appletName') + '" />'
+			'<param name="name" value="' + this.get('appletId') + '" />'
 		];
 		if (this.get('sensorStatePath') !== null) {
 			params.pushObject('<param name="sensorStatePath" value="' + this.get('sensorStatePath') + '" />');
