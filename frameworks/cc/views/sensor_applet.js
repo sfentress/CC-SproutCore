@@ -48,12 +48,14 @@ CC.SensorAppletView = CC.AppletView.extend(
 
   initializeSensorInterface: function() {
     var that = this;
-    var listener = that.listenerPath;
-    var appletReady = this.appletInstance().initSensorInterface(listener)
+    var listener = that.get('listenerPath');
+    var appletInstance = this.appletInstance();
+    var appletReady = appletInstance && appletInstance.initSensorInterface && appletInstance.initSensorInterface(listener);
+
     if (appletReady) {
       if (that.sensorAppletTimer) {
         window.clearInterval(that.sensorAppletTimer);
-      };
+      }
       that.set('sensorsReady', YES);
     } else {
       if (!that.sensorAppletTimer) {
