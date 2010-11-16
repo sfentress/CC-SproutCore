@@ -72,7 +72,7 @@ CC.SensorAppletView = CC.AppletView.extend(
   
   isSafari: function() {
     // detect safari
-    if (typeof(navigator) != 'undefined' && typeof(navigator.vendor) != 'undefined' && navigator.vendor.indexOf("Apple") != -1) {
+    if (typeof navigator !== 'undefined' && typeof navigator.vendor !== 'undefined' && navigator.vendor.indexOf("Apple") != -1) {
       return YES;
     }
     return NO;
