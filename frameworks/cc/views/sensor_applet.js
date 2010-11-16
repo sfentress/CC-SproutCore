@@ -39,7 +39,7 @@ CC.SensorAppletView = CC.AppletView.extend(
   
   // END OVERRIDES!!!
 
-  sensorAppletTimer: null,
+  sensorAppletTimer: false,
 
   startSensorAppletInitialization: function () {
     var that = this;
@@ -47,17 +47,17 @@ CC.SensorAppletView = CC.AppletView.extend(
   },
 
   initializeSensorInterface: function() {
-    var listener = this.get('listenerPath');
-    var appletReady = this.run(function(applet) { applet.initSensorInterface(listener) });
+    var that = this;
+    var listener = that.listenerPath;
+    var appletReady = this.appletInstance().initSensorInterface(listener)
     if (appletReady) {
-      if (this.get('sensorAppletTimer')) {
-        window.clearInterval(this.get('sensorAppletTimer'));
+      if (that.sensorAppletTimer) {
+        window.clearInterval(that.sensorAppletTimer);
       };
-      this.set('sensorsReady', YES);
+      that.set('sensorsReady', YES);
     } else {
-      if (!this.sensorAppletTimer) {
-        var that = this;
-        this.sensorAppletTimer = window.setInterval(function() { that.initSensorInterface(); }, 250);
+      if (!that.sensorAppletTimer) {
+        that.sensorAppletTimer = window.setInterval(function() { that.initializeSensorInterface(); }, 250);
       }
     }
   },
