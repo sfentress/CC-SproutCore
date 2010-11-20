@@ -50,7 +50,20 @@ CC.SensorAppletView = CC.AppletView.extend(
     var that = this;
     var listener = that.get('listenerPath');
     var appletInstance = this.appletInstance();
-    var appletReady = appletInstance && appletInstance.initSensorInterface && appletInstance.initSensorInterface(listener);
+    var appletReady = NO;
+    
+    // Try to call initSensorInterface, but note
+    //  (1) appletInstance may not have initialized yet
+    //  (2) 'probing' for initialization via the js idiom:
+    //        appletInstance.initSensorInterface && appletInstance.initSensorInterface();
+    //      actually throws an error in IE even AFTER appletInstance.initSensorInterface is ready to call, because
+    //      IE thinks that it's an error to access a java method as a property instead of calling it.
+    
+    try {
+      appletReady = appletInstance.initSensorInterface(listener);
+    } catch (e) {
+      // Do nothing--we'll try again in the next timer interval.
+    }
 
     if (appletReady) {
       if (that.sensorAppletTimer) {
