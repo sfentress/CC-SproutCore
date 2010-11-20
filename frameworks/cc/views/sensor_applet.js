@@ -15,8 +15,9 @@ sc_require('views/applet');
 CC.SensorAppletView = CC.AppletView.extend(
 /** @scope CC.SensorAppletView.prototype */ {
   
-  //OVERRIDES!!! These are typically overridden in the page definitions
-  // This is the Javascript object path to the listener function... eg App.mainPage.mainPane.sensorApplet.sensorListener
+  // OVERRIDES!!! These are typically overridden in the page definitions
+  
+  // This is the Javascript object path to the listener function... eg 'App.mainPage.mainPane.sensorApplet.sensorListener'
   listenerPath: 'defaultDataListener',
   
   // the Javascript object path to the sensorState variable, which needs to be used under safari to trigger starting and stopping the sensors
@@ -33,13 +34,13 @@ CC.SensorAppletView = CC.AppletView.extend(
   sensorsReady: function() {},
   
   render: function(context, firstTime) {
-      sc_super();
-      this.startSensorAppletInitialization();
+    sc_super();
+    this.startSensorAppletInitialization();
   },
   
   // END OVERRIDES!!!
 
-  sensorAppletTimer: false,
+  _sensorAppletTimer: false,
 
   startSensorAppletInitialization: function () {
     var self = this;
@@ -65,15 +66,16 @@ CC.SensorAppletView = CC.AppletView.extend(
     }
 
     if (appletReady) {
-      if (this.sensorAppletTimer) {
-        window.clearInterval(this.sensorAppletTimer);
+      if (this._sensorAppletTimer) {
+        window.clearInterval(this._sensorAppletTimer);
+        this._sensorAppletTimer = false;
       }
       this.set('sensorsReady', YES);
     } 
     else {
-      if (!this.sensorAppletTimer) {
+      if (!this._sensorAppletTimer) {
         var self = this;
-        this.sensorAppletTimer = window.setInterval(function() { self.initializeSensorInterface(); }, 250);
+        this._sensorAppletTimer = window.setInterval(function() { self.initializeSensorInterface(); }, 250);
       }
     }
   },
