@@ -28,7 +28,10 @@ CcChat.chatController = SC.ObjectController.create(
   
   latestChat: null,       // other controllers can hook into this
   
+  subscribedChannels: [],
+  
   initChat: function (channel) {
+    this.unsubscribeFromExistingChannels();
     var _channel = CcChat.chatRoomController.validateChannel(channel);
     CcChat.chatRoomController.set('channel', channel);
     
@@ -47,6 +50,16 @@ CcChat.chatController = SC.ObjectController.create(
     this.propertyDidChange('chatHasInitialized');
     // this.chatHasInitialized = YES;
     return channel;
+  },
+  
+  unsubscribeFromExistingChannels: function() {
+    var subscribedChannels = this.get('subscribedChannels');
+    for (var i = 0; i < subscribedChannels.length; i++){
+      var channel = subscribedChannels[i];
+      this.unsubscribeFromChannel(channel);
+      this.unsubscribeFromUserList(channel);
+    }
+    this.set('subscribedChannels', []);
   },
 
   sendChat: function(message, item){
@@ -87,6 +100,15 @@ CcChat.chatController = SC.ObjectController.create(
   subscribeToChannel: function(channel, callback){
     var _channel = CcChat.chatRoomController.validateChannel(channel);
     this.get('comet').subscribe(_channel, callback, this);
+    
+    var subscribedChannels = this.get('subscribedChannels');
+    subscribedChannels.push(_channel);
+    this.set('subscribedChannels', subscribedChannels);
+  },
+  
+  unsubscribeFromChannel: function(channel){
+    var _channel = CcChat.chatRoomController.validateChannel(channel);
+    this.get('comet').unsubscribe(_channel);
   },
   
   subscribeToUserList: function(channel){
@@ -99,6 +121,14 @@ CcChat.chatController = SC.ObjectController.create(
     }
     
     this.subscribeToChannel('/smeta/clients'+channel, updateUserList);
+  },
+  
+  unsubscribeFromUserList: function(channel){
+    var _channel = CcChat.chatRoomController.validateChannel(channel);
+    
+    this.set('usersInRoom', []);
+    
+    this.unsubscribeFromChannel('/smeta/clients'+channel);
   },
   
   _usernameSet: function () {
