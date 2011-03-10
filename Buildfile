@@ -5,4 +5,4 @@
 
 # Add initial buildfile information here
 config :all, :required => [:sproutcore, :cc, :cc_chat]
-proxy '/chat/', :to => 'geniverse.dev.concord.org'
+# proxy '/chat/', :to => 'geniverse.dev.concord.org'
