@@ -141,24 +141,50 @@ CC.SensorAppletView = CC.AppletView.extend(
   
   layout: { centerX: 0, centerY: 0, width: 160, height: 40 },     // defaults
   
-  start: function() {
+  start: function() {    
     this.set('sensorState', 'running');
     if (this.get('isSafari') == NO || this.get('sensorStatePath') === null) {
-      this.run(function(applet) { applet.startCollecting(); });
+      return this._tryToStartApplet();
     }
   },
   
   stop: function() {
     this.set('sensorState', 'stopped');
     if (this.get('isSafari') == NO || this.get('sensorStatePath') === null) {
-      this.run(function(applet) { applet.stopCollecting(); });
+      return this._tryToStopApplet();
     }
   },
   
   reset: function() {
     this.set('sensorState', 'ready');
     if (this.get('isSafari') == NO || this.get('sensorStatePath') === null) {
-      this.run(function(applet) { applet.stopCollecting(); });
+      return this._tryToStopApplet();
+    }
+  },
+  
+  _tryToStopApplet: function () {
+    var appletInstance = this.appletInstance();
+    // as noted above, IE thinks it's an error to reference appletInstance.stopCollecting except by invoking it
+    try {
+      appletInstance.stopCollecting();
+      return YES;
+    } 
+    catch (e) {
+      return NO;
+    }
+  },
+  
+  _tryToStartApplet: function () {
+    var appletInstance = this.appletInstance();
+    // as noted above, IE thinks it's an error to reference appletInstance.stopCollecting except by invoking it
+    // I also think (?) generifying _tryToStopApplet and _tryToStartApplet into 
+    // _tryToInvokeAppletMethod('stopCollecting'), etc, will make IE complain
+    try {
+      appletInstance.startCollecting();
+      return YES;
+    } 
+    catch (e) {
+      return NO;
     }
   }
 
